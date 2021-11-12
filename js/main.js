@@ -57,6 +57,10 @@ let tabSlideAction = (tabEvents)=>{
   	parentEl = currentTab.parentElement;
   	childEl = parentEl.children;
   	tabIndex = Array.from(childEl).indexOf(currentTab);
+    
+    currentTab.classList.add('bar_action');
+    console.log(parentEl)
+   
 }
 
 tabList.forEach((items)=>{
