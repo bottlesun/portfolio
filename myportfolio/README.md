@@ -1,10 +1,6 @@
 ### 개인 portfolio 주소 - http://bottlesun.pe.kr/
-### 개인 github 주소 - https://github.com/bottlesun/
-### 개인 github 페이지 주소 - https://bottlesun.github.io/portfolio/
 
-- 파일 리스트  -
-## 1. 개인 포트폴리오 정리 홈페이지 22.01.11 (리뉴얼중) /myportfolio
-## 2. 클론코딩 _ 바닐라JS 그림판 22.01.11 /clonecoding/paintbrush
+바닐라 JS 공부하면서 초기 마크업을 해보기 위해 만들었던 홈페이지이다.
 
 
 -------------------------------------------------------------------------------
