@@ -5,7 +5,7 @@ const NEWS_URL = 'https://api.hnpwa.com/v0/news/1.json';
 const CONTENT_URL = 'https://api.hnpwa.com/v0/item/@id.json';
 
 const store = {
-    currentPage : 1,
+    currentPage: 1,
 };
 
 function getData(url) {
@@ -19,11 +19,23 @@ function getData(url) {
 function newsFeed() { //목록화면
     const newsFeed = getData(NEWS_URL);
     const newsList = [];
-  
-    newsList.push('<ul>');
-    
-    for(let i = (store.currentPage - 1) * 10; i < store.currentPage * 10; i++) {
-      newsList.push(`
+    let template = `
+    <div class="container mx-auto p-4">
+      <h1>Hacker News</h1>
+      <ul>
+        {{__news_feed__}}      
+      </ul>
+      <div>
+        <a href="#/page/{{__prev_page__}}">이전 페이지</a>
+        <a href="#/page/{{__next_page__}}">다음 페이지</a>
+      </div>
+    </div>
+  `;
+
+
+
+    for (let i = (store.currentPage - 1) * 10; i < store.currentPage * 10; i++) {
+        newsList.push(`
         <li>
           <a href="#/show/${newsFeed[i].id}">
             ${newsFeed[i].title} (${newsFeed[i].comments_count})
@@ -32,28 +44,13 @@ function newsFeed() { //목록화면
       `);
     }
 
-    newsList.push('</ul>');
+    template = template.replace('{{__news_feed__}}', newsList.join(''));
+    template = template.replace('{{__prev_page__}}', store.currentPage > 1 ? store.currentPage - 1 : 1);
+    template = template.replace('{{__next_page__}}', store.currentPage < 3 ? store.currentPage + 1 : store.currentPage );
+    
 
-    newsList.push(`
-        <div>
-        <a id="prev" href="#/page/${store.currentPage > 1 ? store.currentPage - 1 : 1}">이전 페이지</a>
-        <a id="naxt" href="#/page/${ store.currentPage < 3 ? store.currentPage + 1 : store.currentPage }">다음 페이지</a>
-        </div>
-    `);
-    container.innerHTML = newsList.join('');
+    container.innerHTML = template;
 
-    const prev = document.querySelector('#prev');
-    const naxt = document.querySelector('#naxt');
-
-    if(store.currentPage === 1 ){
-        prev.style.color = '#eaeaea';
-        prev.style.cursor="Default"
-    }
-
-    if(store.currentPage === 3 ){
-        naxt.style.color = '#eaeaea';
-        naxt.style.cursor="Default"
-    }
 }
 
 function newsDefail() { // 내용 화면 
@@ -70,12 +67,12 @@ function newsDefail() { // 내용 화면
 };
 
 
-function router(){
+function router() {
     const routePath = location.hash;
 
-    if(routePath === ''){ //location.hash 에 #만 들어왔을경우엔 빈 값을 반환
+    if (routePath === '') { //location.hash 에 #만 들어왔을경우엔 빈 값을 반환
         newsFeed();
-    } else if(routePath.indexOf('#/page/') >= 0 ){
+    } else if (routePath.indexOf('#/page/') >= 0) {
         store.currentPage = Number(routePath.substring(7));
         newsFeed();
     } else {
