@@ -17,14 +17,29 @@ const handleListen = () => console.log(`Listening on http://localhost:3000`);
 const server = http.createServer(app);
 const wss = new WebSocket.Server({ server });
 
+function onSocketClose() {
+    console.log("DisConected from Browser ❌")
+}
+
+
+const sockets = [];
+
 wss.on("connection",(socket) =>{
+    sockets.push(socket);
+    socket["nickname"] = "Anon"; 
     console.log("Connected to Browser ✔");
+
     //socket 에 있는 기능
-    socket.on("close", ()=>  console.log("DisConected from Browser ❌"));
-    socket.on("message" , message => {
-        console.log(message.toString());
-    })
-    socket.send("hello!");
+    socket.on("close", onSocketClose);
+    socket.on("message" , (msg) => {
+        const message = JSON.parse(msg.toString());
+        switch(message.type){
+          case "new_message" :
+            sockets.forEach((aSocket) =>  aSocket.send(`${socket.nickname} : ${message.payload}`));        
+          case "nickname" :
+            socket["nickname"] = message.payload;
+        }
+    });
 });
 
 server.listen(3000,handleListen);
