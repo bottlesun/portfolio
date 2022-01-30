@@ -1,5 +1,6 @@
 import http from "http"; // ws
-import WebSocket from "ws";  // ws
+// import WebSocket from "ws";  // ws
+import { Server, Socket } from 'socket.io';
 import express from 'express';
 
 const app = express();
@@ -14,14 +15,28 @@ const handleListen = () => console.log(`Listening on http://localhost:3000`);
 
 
 /* ws 구현 */
-const server = http.createServer(app);
+const httpServer = http.createServer(app);
+const wsServer = new Server(httpServer);
+
+/*  ws 구현 
 const wss = new WebSocket.Server({ server });
 
 function onSocketClose() {
     console.log("DisConected from Browser ❌")
 }
+*/
 
 
+wsServer.on('connection', socket => {
+  socket.on('enter_room', (roomName, done) =>{
+    console.log(roomName);
+    setTimeout(()=>{
+      done("hello from the backend");
+    },10000)
+  }, 15000);
+});
+
+/* websocket code 
 const sockets = [];
 
 wss.on("connection",(socket) =>{
@@ -41,5 +56,7 @@ wss.on("connection",(socket) =>{
         }
     });
 });
+*/
 
-server.listen(3000,handleListen);
+
+httpServer.listen(3000,handleListen);

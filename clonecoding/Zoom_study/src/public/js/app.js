@@ -1,3 +1,23 @@
+const soket = io(); // back-end 와 연결 해줌
+
+
+const welcome = document.getElementById('welcome');
+const form = welcome.querySelector("form");
+
+function backendDone(msg){
+    console.log(`The backend says : ` , msg);
+}
+
+function handleRoomSubmit(e) {
+    e.preventDefault();
+    const input = form.querySelector('input');
+    soket.emit("enter_room" , {payload : input.value} ,  backendDone );
+    input.value = "";
+}
+
+form.addEventListener('submit', handleRoomSubmit);
+
+/* WebSocket 
 const messageList = document.querySelector("ul");
 const messageForm = document.querySelector("#message");
 const nickForm = document.querySelector("#nick");
@@ -41,3 +61,4 @@ function hendleNickSubmit (e) {
 
 messageForm.addEventListener("submit" , hendleSubmit);
 nickForm.addEventListener('submit' , hendleNickSubmit)
+*/
