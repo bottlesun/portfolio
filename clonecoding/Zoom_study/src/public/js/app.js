@@ -54,18 +54,22 @@ function handleRoomSubmit(e) {
 
 form.addEventListener('submit', handleRoomSubmit);
 
-soket.on("welcome" , (nickname)=>{
+soket.on("welcome" , (nickname , newCount)=>{
+    const h3 = room.querySelector("h3");
+    h3.innerText =  `Room :${roomName} (${newCount})`;
     addMessage(`${nickname} 님께서 입장 하셨습니다.`);
 });
 
-soket.on('bye',(nickname)=>{
+soket.on('bye',(nickname , newCount)=>{
+    const h3 = room.querySelector("h3");
+    h3.innerText =  `Room :${roomName} (${newCount})`;
     addMessage(`${nickname} 님께서 퇴장 하셨습니다.`);
 })
 
 soket.on('new_message' , addMessage);
 
-soket.on('room_change' , (rooms) => {
-    const roomList = welcome.querySelector('ul');
+soket.on('room_change' ,(rooms) => {
+  const roomList = welcome.querySelector('ul');
 
     if(rooms.length === 0) {
         roomList.innerHTML = "";
@@ -75,7 +79,7 @@ soket.on('room_change' , (rooms) => {
         const li = document.createElement('li');
         li.innerText = room;
         roomList.append(li);
-    })
+    });
 });
 
 

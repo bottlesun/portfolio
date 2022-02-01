@@ -1,6 +1,7 @@
 import http from "http"; // ws
 // import WebSocket from "ws";  // ws
-import { Server, Socket } from 'socket.io';
+import { Server } from 'socket.io';
+import {instrument} from '@socket.io/admin-ui';
 import express from 'express';
 
 const app = express();
@@ -16,7 +17,15 @@ const handleListen = () => console.log(`Listening on http://localhost:3000`);
 
 /* ws 구현 */
 const httpServer = http.createServer(app);
-const wsServer = new Server(httpServer);
+const wsServer = new Server(httpServer, {
+  cors: {
+    origin: ["https://admin.socket.io"],
+    credentials: true
+  }
+});
+instrument(wsServer, {
+  auth: false
+});
 
 /*  ws 구현 
 const wss = new WebSocket.Server({ server });
@@ -34,12 +43,16 @@ function publicRooms() {
     },
   } = wsServer;
   const publicRooms = [];
-  rooms.forEach((_,key) => {
+  rooms.forEach((_, key) => {
     if(sids.get(key) === undefined) {
       publicRooms.push(key)
     }
   });
   return publicRooms;
+}
+
+function countRoom(roomName){
+  return wsServer.sockets.adapter.rooms.get(roomName)?.size;
 }
 
 wsServer.on('connection', (socket) => {
@@ -48,19 +61,17 @@ wsServer.on('connection', (socket) => {
   socket.onAny((event) => {
     console.log(`Soket Event : ${event}`);
   });
-  socket.on('enter_room', (roomName, done) => {
+  socket.on('enter_room', (roomName, done) => { // 방을 들어온 후
     socket.join(roomName);
     done();
-    socket.to(roomName).emit("welcome", socket.nickname);
+    socket.to(roomName).emit("welcome", socket.nickname , countRoom(roomName));
     wsServer.sockets.emit("room_change" ,publicRooms());
   });
-  socket.on("disconnecting", () => {
-    socket.rooms.forEach(room =>
-      socket.to(room).emit("bye", socket.nickname)
-    );
-    wsServer.sockets.emit("room_change" ,publicRooms());
+  socket.on("disconnecting", (room) => { // 방을 나가기 직전
+    socket.rooms.forEach((room) =>
+      socket.to(room).emit("bye", socket.nickname) , countRoom(room) - 1);
   });
-  socket.on("disconnet" , ()=> {
+  socket.on("disconnect",()=>{ // 방을 나간 후
     wsServer.sockets.emit("room_change" ,publicRooms());
   })
   socket.on("new_message", (msg, room, done) => {
