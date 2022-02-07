@@ -10,8 +10,11 @@ html(lang="en")
 
     body
         header 
-            h1 It Works!
-        main 
-            
+            h1 Noom Video!
+        main
+            div#myStream
+                video#myFace(autoplay,playsinline, width="400" ,height="400")
+                button#mute
+                button#camera 
         script(src=" /socket.io/socket.io.js")
         script(src=" /public/js/app.js")
