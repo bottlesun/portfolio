@@ -1,5 +1,5 @@
 ### 개인 portfolio 주소 - http://bottlesun.pe.kr/
-### 개인 github 주소 - https://github.com/bottlesun/ ,  https://bottlesun.github.io/portfolio/
+### 개인 github 주소 - https://github.com/bottlesun/ ,  https://bottlesun.github.io/study/
 
 
 - 파일 리스트  -

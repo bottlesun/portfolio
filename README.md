@@ -1,9 +1,10 @@
 ### 개인 portfolio 주소 - http://bottlesun.pe.kr/
-### 개인 github 주소 - https://github.com/bottlesun/ ,  https://bottlesun.github.io/portfolio/
+### 개인 github 주소 - https://github.com/bottlesun/ ,  https://bottlesun.github.io/study/
 
 
 - 파일 리스트  -
 ## 01. 클론코딩 - 스터디를 하거나, 작업물에 대한 클론코딩을 업로드 합니다. /clonecoding
+## 02. JS 스터디 - JS 스터디를 위한 프로젝트 입니다 /JSstudy
 
 
 -------------------------------------------------------------------------------
