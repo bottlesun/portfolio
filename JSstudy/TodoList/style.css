@@ -7,11 +7,17 @@ body{
 .container{
     background-color:#fff;
     height:100vh;
+    border-top:5px solid sandybrown;
     box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}
+
+.container h1{
+    padding:12px 0;
 }
 
 .task-area{
     border:1px solid lightgray;
+    margin-top:10px;
 }
 
 .task-tabs{
@@ -21,15 +27,12 @@ body{
 }
 .task-tabs div{
     padding:1em;
-}
-
-.task-tabs.action{
-    border-bottom:1px solid red;
+    cursor: pointer;
 }
 
 #under-line{
     height:4px;
-    background-color:gray;
+    background-color:lightsalmon;
     position: absolute;
     width:60px;
     left:0;
@@ -37,10 +40,56 @@ body{
     padding: 0;
 }
 
+
 .task{
     display:flex;
     justify-content: space-between;
-    padding:1em;
-    border:1px solid lightgray;
-    border-top:none;
+    border-bottom:1px solid lightsalmon;
+    width: 100%;
+    align-items: center;
+}
+
+.task span{
+    padding: 1em;
+    
+}
+
+.task-done{
+    transition: 0.5s;
+    text-decoration: line-through;
+    background: lightgoldenrodyellow;
+}
+
+.button-box{
+    display: flex;
+}
+
+.button-box button{
+    border:none;
+    height:100%;
+    width:5em;
+    background: white;
+    padding: 1em;
+    transition: 0.5s;
+}
+
+.button-box button:nth-child(1):hover{
+    background-color:lightcoral;
+}
+.button-box button:nth-child(2):hover{
+    background-color:lightgreen;
+}
+
+.button-box button:nth-child(1) i{
+    color:lightcoral;
+}
+.button-box button:nth-child(2) i{
+    color:lightgreen;
+}
+
+.button-box button:nth-child(1):hover i{
+    color:#fff;
+}
+.button-box button:nth-child(2):hover i{
+    color:#fff;
 }
