@@ -21,11 +21,27 @@ let taskBox = document.querySelector(".task-box");
 let mode = 'all';
 let filterList = [];
 
+let underLine = document.querySelector('#under-line');
+
 addButton.addEventListener("click", inputClick);
+input.addEventListener('keypress' , (e) => {
+  if (e.keyCode === 13) { // key code of the keybord key
+    e.preventDefault();
+    inputClick();
+  }
+});
 
 tabs.forEach((i,v)=>{
-    tabs[v].addEventListener('click' , function(e){filter(e)})
-})
+    tabs[v].addEventListener('click' , function(e){filter(e)});
+    tabs[v].addEventListener('click', (e)=> horizontalIndicator(e));
+
+    tabs[v].addEventListener('click', () => {
+      tabs.forEach((v2)=>{
+        v2.classList.remove('activeColor');
+      });
+    i.classList.add('activeColor');
+    });
+});
 
 function inputClick() {
   let task = {
@@ -35,6 +51,7 @@ function inputClick() {
   };
   taskList.push(task);
   console.log(taskList);
+  input.value =""
   render();
 }
 
@@ -43,9 +60,8 @@ function render() {
     if(mode == 'all'){
         list = taskList;
     } else if(mode =='onGoing' || mode == 'done'){
-        list = filterList
+        list = filterList;
     }
-
 
   let resultHTML = "";
   for (let i = 0; i < list.length; i++) {
@@ -54,7 +70,7 @@ function render() {
         <div class="task task-done">
         <span>${list[i].taskContent}</span>
         <div class="button-box">
-            <button onClick="toggleComplete('${list[i].id}')"><i class="fa fa-bookmark"></i></button>
+            <button onClick="toggleDone('${list[i].id}')"><i class="fa fa-bookmark"></i></button>
             <button onClick="deleteTask('${list[i].id}')"><i class="fa fa-trash"></i></button>
         </div>
     </div>`;
@@ -63,7 +79,7 @@ function render() {
         <div class="task">
         <span>${list[i].taskContent}</span>
         <div class="button-box">
-            <button onClick="toggleComplete('${list[i].id}')"><i class="far fa-bookmark"></i></button>
+            <button onClick="toggleDone('${list[i].id}')"><i class="far fa-bookmark"></i></button>
             <button onClick="deleteTask('${list[i].id}')"><i class="fa fa-trash"></i></button>
         </div>
     </div>`;
@@ -73,15 +89,14 @@ function render() {
   taskBox.innerHTML = resultHTML;
 }
 
-function toggleComplete(id) {
-  //console.log("id :", id);
+function toggleDone(id) {
   for (let i = 0; i < taskList.length; i++) {
     if (taskList[i].id == id) {
       taskList[i].isComplete = !taskList[i].isComplete;
       break;
     }
   }
-  render();
+  filter();
 }
 
 function deleteTask(id) {
@@ -91,33 +106,40 @@ function deleteTask(id) {
       break;
     }
   }
-  render();
+  filter();
 }
 
 function filter(e){
-    mode = e.target.id
+  if (e) {
+    mode = e.target.id;
+  }
     filterList = [];
-
     if(mode == 'all'){
         render()
     } else if( mode == 'onGoing'){
         for(let i = 0; i < taskList.length; i++){
             if(taskList[i].isComplete == false){
-                filterList.push(taskList[i]);
+              filterList.push(taskList[i]);
             }
         }
-        render()
     } else if( mode == 'done'){
         for(let i = 0; i < taskList.length; i++){
             if(taskList[i].isComplete == true){
                 filterList.push(taskList[i]);
             }
         }
-        render()
     }
+    console.log(filterList)
+    render();
 }
 
 
+
+
+function horizontalIndicator(e){
+  underLine.style.left = e.currentTarget.offsetLeft + 'px';
+  underLine.style.width = e.currentTarget.offsetWidth + 'px';
+}
 
 
 function randomIDGenerate() {
