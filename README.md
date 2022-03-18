@@ -1,8 +1,8 @@
 # JSstudy
 JavaScript 스터디 및 연습 작업물 입니다.
 
-* code review - https://github.com/bottlesun/study
-* demo webSite - https://bottlesun.github.io/study
+* code review - https://github.com/bottlesun/study/JSstudy
+* demo webSite - https://bottlesun.github.io/study/JSstudy
 
 -------------------------------------------------------------------------------
 ## Study List 
