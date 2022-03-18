@@ -1,9 +1,13 @@
 # JSstudy
 JavaScript 스터디 및 연습 작업물 입니다.
-1. 숫자 맞추기 게임 /Numbergame
-2. 투두리스트 /TodoList
+
+* code review - https://github.com/bottlesun/study
+* demo webSite - https://bottlesun.github.io/study
 
 -------------------------------------------------------------------------------
+## Study List 
 
-작업 제의 및 같이 공부 및 정보등을 공유 하는 사람도 환영입니다 :)
-메일을 보내면 제 메일로 전송이 되니, 필요하시다면 꼭 저를 찾아주시면 감사하겠습니다.
+1. 숫자 맞추기 게임 /Numbergame
+2. 투두리스트 /TodoList
+3. 그림판 클론코딩 /Paintbrush
+4. 줌 클론코딩 /Zoom_cloneCoding
