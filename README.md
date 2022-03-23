@@ -12,3 +12,4 @@ JavaScript 스터디 및 연습 작업물 입니다.
 2. 투두리스트 /TodoList
 3. 그림판 클론코딩 /Paintbrush
 4. 줌 클론코딩 /Zoom_cloneCoding
+5. 뉴스타임스 / newsTimes
