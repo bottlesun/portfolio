@@ -59,7 +59,7 @@ function render() {
                 }
             </P>
             <div class="source-dey">
-            ${newsItem.rights||"no Soucre"} * ${
+            ${newsItem.rights||"no Source"} * ${
                 moment(newsItem.published_date).fromNow()
             }
             </div>
