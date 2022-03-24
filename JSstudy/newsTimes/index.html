@@ -10,10 +10,40 @@
 </head>
 <body>
     <section class="container">
-        <header class="head-line-section">
-            <div class="head-line">
-                <div class="logo"><img src="img/main_logo.png" alt=""></div>
+
+        <div class="side-menu" id="mySidenav">
+            <button class="closebtn" onclick="closeNav()">&times;</button>
+            <div class="side-menu-list" id="menu-list">
+                <button>Sport</button>
+                <button>Tech</button>
+                <button>World</button>
+                <button>Finance</button>
+                <button>Politics</button>
+                <button>Business</button>
+                <button>Economics</button>
+                <button>Entertainment</button>
+                <button>Beauty</button>
+                <button>Travel</button>
+                <button>Music</button>
+                <button>Food</button>
+                <button>Science</button>
+                <button>Gaming</button>
+                <button>Energy</button>
             </div>
+    
+    </div>
+    <!-- 생략 -->
+    <!-- 햄버거 버튼 추가  -->
+     <i class="fas fa-bars hide icon-button" onclick="openNav()"></i>
+     <i class="fas fa-search icon-button" onclick="openSearchBox()"></i>
+
+     <span id="input-area">
+         <input type="text" id="search-input" placeholder="search" />
+         <button class="search-button" onclick="searchNews()">Go</button>
+     </span>
+
+     
+        <header class="head-line-section">
             <div class="menus">
                 <button>Sport</button>
                 <button>Tech</button>
@@ -35,9 +65,18 @@
 
 
         <section class="body_wrap">
-            <div>
-                <div>
-                    
+            <div class="row news">
+                <div class="col-lg-4">   
+                    <img class="news-img-size" src="https://via.placeholder.com/400x250" alt="">
+                </div>
+                <div class="col-lg-8 news-content">
+                    <h2>타이틀 타이틀!!!</h2>
+                    <P>
+                        내용 제목 텍스트
+                    </P>
+                    <div class="source-dey">
+                        KBS * 2022-03-24
+                    </div>
                 </div>
             </div>
         </section><!--body_wrap 컨텐츠 -->
