@@ -5,8 +5,10 @@ JavaScript 스터디 및 연습 작업물 입니다.
 * demo webSite - https://bottlesun.github.io/study/
 
 -------------------------------------------------------------------------------
-* /JSstudy
-## Study List 
+
+## Study List  
+
+### JavaScript
 
 1. 숫자 맞추기 게임 /Numbergame
 2. 투두리스트 /TodoList
