@@ -1,10 +1,3 @@
-/*
-지금 현재 상단에 sport, tech, world등 카테고리들이 쭉~있다. 카테고리중 하나를 클릭하면 그 카테고리에 있는 뉴스를 어떻게 검색할까? 고민해보고 미리 코드를 짜보자!
-
-힌트! API 문서 속 query 를 잘보자! 👀
-https://docs.newscatcherapi.com/api-docs/endpoints/latest-headlines
-카테고리로 검색할 수 있는 url만 잘 갖추면 나머지 url호출하고 화면에 보여주는건 똑같다.
-*/
 
 
 /* m_menu event */
@@ -28,6 +21,8 @@ const openSearchBox = () => {
 
 
 let news = [];
+let page = 1;
+let total_pages = 0;
 let ThisMenus = document.querySelectorAll('.menus button')
 let thisValue = ''
 let searchBtn = document.querySelector('.search-button');
@@ -39,16 +34,22 @@ ThisMenus.forEach(menu => menu.addEventListener('click', (event) => getNewsByTop
 // api 호출 함수를 부른다.
 const getNews = async () => {
     try {
-        let header = new Headers({ 'x-api-key': 'tlfAWwOpBrAQQa3g6LQ5f-a_9E3txFZcgrw2oJx1i_0' }); // js 내장 클래스 new Headers({})
+        let header = new Headers({ 'x-api-key': 'tW8owYAyg01t9XS_JJ9f8R37c2cEzH8dOcZ0A5zeYOI' }); // js 내장 클래스 new Headers({})
+        //tW8owYAyg01t9XS_JJ9f8R37c2cEzH8dOcZ0A5zeYOI ->API mr_k00
+        //tlfAWwOpBrAQQa3g6LQ5f-a_9E3txFZcgrw2oJx1i_0 ->API krr1996
         let response = await fetch(url, { headers: header });
         let data = await response.json();
         if (response.status == 200) {
             if(data.total_hits == 0){
                 throw new Error('검색된 결과값이 없습니다.');
             }
+            console.log('데이터' , data)
             news = data.articles;
+            total_pages = data.total_page;
+            page = data.page;
             console.log(news);
             render();
+            pagenation();
         } else {
             throw new Error(data.message);
         }
@@ -116,8 +117,6 @@ function render() {
 }
 
 
-searchBtn.addEventListener('click', getNewsByKeyWord);
-
 const errorRender = (message) => {
     let errorHTML = `
     <div class="alert alert-danger text-center" role="alert">
@@ -127,5 +126,25 @@ const errorRender = (message) => {
     document.querySelector('.body_wrap').innerHTML = errorHTML;
 }
 
+const pagenation = () => {
+    let pagenationHTML = ``;
+    // total_page
+    // page
+    // page group
+    let pagegroup = Math.ceil(page/5);
+    //last
+    let last = pagegroup * 5;
+    //first
+    let first = last - 4;
+    // first ~ last 페이지 프린트
+    for (let i = first; i <= last ; i++){
+      pagenationHTML += `<li class="page-item"><a class="page-link" href="#">${i}</a></li>`
+    }
+    
+    document.querySelector('.pagination').innerHTML = pagenationHTML;
+    
+}
+
+searchBtn.addEventListener('click', getNewsByKeyWord);
 
 getLatestNews()
