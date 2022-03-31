@@ -1,4 +1,4 @@
-# JSstudy/Paintbrush
+# Paintbrush
 
 ## [ Paint APP ]
 
@@ -6,7 +6,7 @@
 
 canvas 태그를 활용한 이미지 파일로 저장 가능한 그림판 APP
 
-* Demo App - https://bottlesun.github.io/study/JSstudy/Paintbrush/
+* Demo App - https://bottlesun.github.io/study/03-Paintbrush/
 
 ## ●기능
 * 마우스로 canvas 안에서 픽셀 단위로 그리기

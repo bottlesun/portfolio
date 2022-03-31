@@ -1,4 +1,4 @@
-# JSstudy/Numbergame
+# Numbergame
 
 ## [ Numbergame APP ]
 
@@ -6,7 +6,7 @@
 
 아이템 추가 제거, 상태별 할 일을 볼 수 있는 APP 형태로 제작 진행
 
-* Demo App - https://bottlesun.github.io/study/JSstudy/Numbergame/
+* Demo App - https://bottlesun.github.io/study/01-NumberGame/
 
 ## ●기능
 * 1~100 까지의 숫자 자동 출력
