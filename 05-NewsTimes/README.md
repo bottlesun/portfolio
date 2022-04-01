@@ -2,6 +2,8 @@
 
 ## [ News Times WebSite ]
 
+![image](NewsAPI.jpg)
+
 
 API를 활용하여 뉴스 페이지 웹 사이트 구현하기
 
