@@ -34,13 +34,16 @@
     </div>
     <!-- 생략 -->
     <!-- 햄버거 버튼 추가  -->
-     <i class="fas fa-bars hide icon-button" onclick="openNav()"></i>
-     <i class="fas fa-search icon-button" onclick="openSearchBox()"></i>
+    <div class="submenu">
+        <i class="fas fa-bars hide icon-button" onclick="openNav()"></i>
+        <i class="fas fa-search icon-button" onclick="openSearchBox()"></i>
+   
+        <span id="input-area">
+            <input type="text" id="search-input" placeholder="search" />
+            <button class="search-button" >Go</button>
+        </span>
+    </div>
 
-     <span id="input-area">
-         <input type="text" id="search-input" placeholder="search" />
-         <button class="search-button" >Go</button>
-     </span>
 
      
         <header class="head-line-section">

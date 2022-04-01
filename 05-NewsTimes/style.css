@@ -101,3 +101,49 @@
     background-color: beige;
     border-radius: 3px;
   }
+
+  #input-area{
+    display: none;
+
+}
+
+#search-input{
+    border:none;
+    transition: 0.5s;
+}
+
+#search-input:focus{
+    outline: none;
+    background-color: antiquewhite;
+}
+
+.search-button{
+    border:none;
+    background-color: bisque;
+    padding: 5px 20px;
+    transition: 0.5s;
+}
+
+.submenu{
+    position: absolute;
+    top: 9%;
+}
+.submenu i {
+    margin-right:20px
+}
+.pagination{
+    justify-content: center;
+    margin-top:20px;
+}
+
+.page-item.active .page-link{
+    background-color:burlywood;
+    border-color:burlywood;
+}
+.page-link{
+color:burlywood;
+}
+.page-link:hover{
+    background-color: bisque;
+    color:burlywood
+}

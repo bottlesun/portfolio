@@ -23,11 +23,13 @@ const openSearchBox = () => {
 let news = [];
 let page = 1;
 let total_page = 0;
-let ThisMenus = document.querySelectorAll('.menus button')
+let ThisMenus = document.querySelectorAll('.menus button');
+let ThisMenusM = document.querySelectorAll('#menu-list button');
 let thisValue = ''
 let searchBtn = document.querySelector('.search-button');
 let url = ''
 ThisMenus.forEach(menu => menu.addEventListener('click', (event) => getNewsByTopic(event)));
+ThisMenusM.forEach(menu => menu.addEventListener('click', (event) => getNewsByTopic(event)));
 
 
 // 각 함수에서 필요한 url을 만든다.
@@ -67,14 +69,14 @@ const getNews = async () => {
 
 /* api */
 const getLatestNews = async () => {
-    url = new URL(`https://api.newscatcherapi.com/v2/latest_headlines?countries=KR&page_size=10`); // js 내장 클래스 new URL()
+    url = new URL(`https://api.newscatcherapi.com/v2/latest_headlines?countries=KR&page_size=6`); // js 내장 클래스 new URL()
     getNews()
 }
 
 const getNewsByTopic = async (event) => {
     console.log('클릭됨', event.target.textContent);
     let topic = event.target.textContent.toLowerCase()
-    url = new URL(`https://api.newscatcherapi.com/v2/latest_headlines?countries=KR&topic=${topic}&page_size=10`);
+    url = new URL(`https://api.newscatcherapi.com/v2/latest_headlines?countries=KR&topic=${topic}&page_size=6`);
     getNews()
 }
 
@@ -87,8 +89,7 @@ const getNewsByKeyWord = async () => {
     // 데이터 보내기
 
     let keyWord = document.querySelector('#search-input').value;
-    url = new URL(`https://api.newscatcherapi.com/v2/search?q=${keyWord}&countries=KR&page_size=10`);
-
+    url = new URL(`https://api.newscatcherapi.com/v2/search?q=${keyWord}&countries=KR&page_size=6`);
     getNews()
 }
 
