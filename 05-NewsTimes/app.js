@@ -34,9 +34,10 @@ ThisMenus.forEach(menu => menu.addEventListener('click', (event) => getNewsByTop
 // api 호출 함수를 부른다.
 const getNews = async () => {
     try {
-        let header = new Headers({ 'x-api-key': 'tW8owYAyg01t9XS_JJ9f8R37c2cEzH8dOcZ0A5zeYOI' }); // js 내장 클래스 new Headers({})
+        let header = new Headers({ 'x-api-key': '_qVxIzNwLHOqrTwfnuU3wDORoiUxTW0Y2mVlB9frCb8' }); // js 내장 클래스 new Headers({})
         //tW8owYAyg01t9XS_JJ9f8R37c2cEzH8dOcZ0A5zeYOI ->API mr_k00
         //tlfAWwOpBrAQQa3g6LQ5f-a_9E3txFZcgrw2oJx1i_0 ->API krr1996
+        //_qVxIzNwLHOqrTwfnuU3wDORoiUxTW0Y2mVlB9frCb8 -> API bskim
 
         url.searchParams.set('page', page); // &page=
         let response = await fetch(url, { headers: header });
