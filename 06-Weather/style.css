@@ -1,0 +1,69 @@
+@charset "utf-8";
+
+@import url('https://webfontworld.github.io/SCoreDream/SCoreDream.css');
+
+body {
+    font-family: "SCoreDream";
+}
+
+/*공통규격*/
+.centers {
+    justify-content: center;
+    align-items: center;
+}
+
+
+/*내용CSS*/
+
+.weather {
+    width: 100%;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    height: 800px;
+    text-align: center;
+}
+
+.weather_item {
+    width: 100%;
+    border: 1px solid #eaeaea;
+}
+
+
+.main_info {
+    width: 100%;
+    height: 70%;
+    color: #fff;
+    align-items: center;
+}
+
+.main_info .weather_icon {
+    font-size: 5rem;
+    width: 50%;
+}
+
+.weather_info {
+    width: 50%;
+    flex-direction: column;
+}
+
+.weather_info div {
+    width: 100%;
+}
+
+.weather_info div i {
+    font-size: 35px;
+}
+
+.weather_info p {
+    width: 100%;
+}
+
+.sub_info {
+    width: 100%;
+    height: 30%;
+}
+
+.sub_info li {
+    width: 100%;
+}
