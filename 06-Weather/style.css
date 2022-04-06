@@ -67,3 +67,16 @@ body {
 .sub_info li {
     width: 100%;
 }
+
+.sub_info li:nth-child(1) span{
+    color:red;
+}
+
+
+.sub_info li:nth-child(2) span{
+    color:#6366f1;
+}
+
+.sub_info li span {
+    margin-left:10px;
+}

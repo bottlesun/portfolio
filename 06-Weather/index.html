@@ -18,7 +18,7 @@
     <h1 class="text-2xl m-auto pt-5 ">Today's Weather</h1>
     <section class="weather mx-auto p-5 container mx-auto mt-10 bg-white drop-shadow-xl rounded
         grid grid-flow-row-dense grid-cols-3 grid-rows-3 gap-5">
-        <article class="weather_item rounded drop-shadow bg-indigo-400">
+        <article class="weather_item rounded drop-shadow bg-indigo-400 opacity-0">
             <div class="main_info flex">
                 <div class="weather_icon"><i class="fa-solid fa-cloud"></i></div>
                 <div class="weather_info flex gap-2">
@@ -28,31 +28,19 @@
                 </div>
             </div>
             <ul class="sub_info centers flex mx-auto p-5 bg-white">
-                <li> <span>00%</span> <i class="fa-solid fa-wind"></i></li>
-                <li> <span>00%</span> <i class="fa-solid fa-cloud"></i></li>
-                <li> <span>00%</span> <i class="fa-solid fa-water"></i></li>
+                <li><i class="fa-solid fa-temperature-arrow-up"><span>00%</span></i></li>
+                <li><i class="fa-solid fa-temperature-arrow-down"><span>00%</span></i></li>
             </ul>
         </article>
 
     </section>
     <!--weather-->
 
-    <div class="test-icon opacity-0">
-        <i class="fa-solid fa-cloud"></i>
-        <i class="fa-solid fa-cloud-bolt"></i>
-        <i class="fa-solid fa-temperature-half"></i>
-        <i class="fa-solid fa-wind"></i>
-        <i class="fa-solid fa-cloud-sun"></i>
-        <i class="fa-solid fa-sun"></i>
-        <i class="fa-solid fa-cloud-rain"></i>
-        <i class="fa-solid fa-snowflake"></i>
-        <i class="fa-solid fa-smog"></i>
-        <i class="fa-solid fa-water"></i>
-    </div>
 
-    <script src="app.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script type="module" src="./city.list.js"></script>
     <script src="https://kit.fontawesome.com/75e43ff16b.js" crossorigin="anonymous"></script>
+    <script src="app.js"></script>
 
 </body>
 
