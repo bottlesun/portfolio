@@ -15,30 +15,37 @@
 </head>
 
 <body class="bg-gradient-to-r from-indigo-500 text-center">
-    <h1 class="text-2xl m-auto pt-5 ">Today's Weather</h1>
-    <section class="weather mx-auto p-5 container mx-auto mt-10 bg-white drop-shadow-xl rounded
-        grid grid-flow-row-dense grid-cols-3 grid-rows-3 gap-5">
-        <article class="weather_item rounded drop-shadow bg-indigo-400 opacity-0">
-            <div class="main_info flex">
-                <div class="weather_icon"><i class="fa-solid fa-cloud"></i></div>
-                <div class="weather_info flex gap-2">
-                    <div class="flex centers gap-2"><i class="fa-solid fa-temperature-half"></i> <span>5℃</span></div>
-                    <p>상태</p>
-                    <p>도시 , 나라</p>
+    <section>
+        <div class="content-box ">
+            <h1 class="text-4xl font-bold font-action">Today's Weather</h1>
+            <input type="text" name="" class="p-2 rounded mt-5">
+            <button class="bg-indigo-500 shadow-lg shadow-indigo-500/50 p-2 rounded hover:bg-white hover:text-indigo-500 slowAction"> Go </button>
+        </div>
+        <div class="weather mx-auto mb-10 p-5 container mx-auto mt-10 bg-white drop-shadow-xl rounded
+            grid grid-flow-row-dense grid-rows-3 gap-5">
+      
+            <article class="weather_item rounded drop-shadow opacity-0">
+                <div class="main_info flex">
+                    <div class="weather_icon"><i class="fa-solid fa-sun"></i></div>
+                    <div class="weather_info flex gap-2">
+                        <div class="flex centers gap-2"><i class="fa-solid fa-temperature-half"></i> <span>00 ℃</span>
+                        </div>
+                        <p>상태 </p>
+                        <p>서울 , 한국</p>
+                    </div>
                 </div>
-            </div>
-            <ul class="sub_info centers flex mx-auto p-5 bg-white">
-                <li><i class="fa-solid fa-temperature-arrow-up"><span>00%</span></i></li>
-                <li><i class="fa-solid fa-temperature-arrow-down"><span>00%</span></i></li>
-            </ul>
-        </article>
+                <ul class="sub_info centers flex mx-auto p-5 bg-white">
+                    <li><i class="fa-solid fa-temperature-arrow-up"><span> 00℃</span></i></li>
+                    <li><i class="fa-solid fa-temperature-arrow-down"><span> 00℃</span></i></li>
+                </ul>
+            </article>
 
+        </div>
     </section>
     <!--weather-->
 
 
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script type="module" src="./city.list.js"></script>
     <script src="https://kit.fontawesome.com/75e43ff16b.js" crossorigin="anonymous"></script>
     <script src="app.js"></script>
 

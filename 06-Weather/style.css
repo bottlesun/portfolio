@@ -11,22 +11,61 @@ body {
     justify-content: center;
     align-items: center;
 }
+.slowAction {
+    transition: all 0.5s;
+}
 
+input{
+    color:#333;
+    
+}
+
+input:focus{
+    outline: none;
+    color:#333;
+}
 
 /*내용CSS*/
+section{
+    height:100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.content-box{
+    color:#fff;
+    font-weight: bold;
+
+}
+
 
 .weather {
     width: 100%;
-    width: 100%;
+    max-width: 650px!important;
     height: 100%;
+    max-height:600px;
     position: relative;
-    height: 800px;
     text-align: center;
 }
 
 .weather_item {
     width: 100%;
+    max-width: 500px;
+    min-width: 300px;;
+    margin:0 auto;
     border: 1px solid #eaeaea;
+}
+
+.cool {
+    background:linear-gradient(45deg, rgb(196 181 253),rgb(139 92 246));
+}
+.hot{
+    background:linear-gradient(45deg, #f35626, #feab3a);
+}
+.soso{
+    background:linear-gradient(45deg, rgb(134 239 172), rgb(21 128 61));
 }
 
 
@@ -80,3 +119,22 @@ body {
 .sub_info li span {
     margin-left:10px;
 }
+
+
+/*font-action*/
+
+.font-action{
+    background-image: -webkit-linear-gradient(92deg, #f35626, #feab3a);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -webkit-animation: hue 10s infinite linear;
+}
+
+@-webkit-keyframes hue {
+    from {
+      -webkit-filter: hue-rotate(0deg);
+    }
+    to {
+      -webkit-filter: hue-rotate(-360deg);
+    }
+  }
