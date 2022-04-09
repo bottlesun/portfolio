@@ -4,10 +4,12 @@ const APIkey = '89e3fe4c9f2cf5204d70b1b9bddc97fa'
 let API = ""
 let API2 = ""
 let API3 = ""
-let Datas1 , Datas2,  Datas3= []
+let CityURL = 'cityList-min.json'
+let Datas1, Datas2, Datas3, CityDatas = []
 
+let button  = document.querySelector('.buttonAction')
 
-let Arr = [1,2,3]
+let Arr = [1, 2, 3]
 const getData = async () => {
 
     try {
@@ -15,15 +17,23 @@ const getData = async () => {
         const response2 = await axios.get(API2);
         const response3 = await axios.get(API3);
 
-        let data = response.data
-        let data2 = response2.data
-        let data3 = response3.data
+        const JsonResponse = await axios.get(CityURL);
+
+        let data = response.data;
+        let data2 = response2.data;
+        let data3 = response3.data;
+        let CityDaTa = JsonResponse.data;
+
 
         Datas1 = data;
         Datas2 = data2;
         Datas3 = data3;
+        CityDatas = CityDaTa;
 
         render()
+        City()
+
+
     } catch (error) {
         console.log(error)
     }
@@ -31,32 +41,32 @@ const getData = async () => {
 
 const getApi = async () => {
 
-        let url = await 'https://api.openweathermap.org/data/2.5/weather?&appid='
-        API  = `${url}${APIkey}&q=seoul`;
-        API2 = `${url}${APIkey}&q=Daegu`;
-        API3 = `${url}${APIkey}&q=Goyang`;
-    
+    let url = await 'https://api.openweathermap.org/data/2.5/weather?&appid='
+    API = `${url}${APIkey}&q=seoul`;
+    API2 = `${url}${APIkey}&q=Daegu`;
+    API3 = `${url}${APIkey}&q=Goyang`;
+
     getData()
-    
+
 }
 
 
-const render =  () => {
-    
+const render = () => {
+
     let createHTML = "";
-    for(let no = 1 ; no <= Arr.length ; no++){
-        let Datas = ( new Function( 'return ' + `Datas${no}` ) )(); 
-   
+    for (let no = 1; no <= Arr.length; no++) {
+        let Datas = (new Function('return ' + `Datas${no}`))();
+
         for (let i = 0; i < Datas.weather.length; i++) {
             let description = Datas.weather[i].description;
             createHTML += `<article class="weather_item rounded drop-shadow 
-            ${((Datas.main.feels_like - 273.15).toFixed(1) >= 25) ? "hot" : ((Datas.main.feels_like - 273.15).toFixed(1) <= 5) ? "cool" : 'soso' }">
+            ${((Datas.main.feels_like - 273.15).toFixed(1) >= 25) ? "hot" : ((Datas.main.feels_like - 273.15).toFixed(1) <= 5) ? "cool" : 'soso'}">
         <div class="main_info flex">
             <div class="weather_icon"><i class="fa-solid "></i></div>
             <div class="weather_info flex gap-2">
                 <div class="flex centers gap-2"><i class="fa-solid fa-temperature-half"></i> <span>${(Datas.main.feels_like - 273.15).toFixed(1)}℃</span></div>
                 <p>${description}</p>
-                <p>${(Datas.name == 'Seoul') ? "서울" : (Datas.name == 'Daegu') ? "대구" : (Datas.name == 'Goyang-si') ? "고양" : Datas.name } , ${Datas.sys.country == "KR" ? "한국" : Datas.sys.country}</p>
+                <p>${(Datas.name == 'Seoul') ? "서울" : (Datas.name == 'Daegu') ? "대구" : (Datas.name == 'Goyang-si') ? "고양" : Datas.name} , ${Datas.sys.country == "KR" ? "한국" : Datas.sys.country}</p>
             </div>
         </div>
         <ul class="sub_info centers flex mx-auto p-5 bg-white">
@@ -68,7 +78,7 @@ const render =  () => {
     }
 
 
-    
+
 
     document.querySelector('.weather').innerHTML = createHTML;
     changeWeatherIcon();
@@ -98,8 +108,20 @@ const changeWeatherIcon = () => {
             }
         }
     });
-   
+
 }
 
+/* 상단 메뉴 버튼 */
+const City = async () => {
+
+   for  await(const index of CityDatas) {
+        if (index.country == 'KR') {
+            if (index.name.includes('-do') && !index.name.includes('-dong')) {
+            
+            }
+        }
+    }
+
+}
 
 getApi();

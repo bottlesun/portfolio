@@ -15,15 +15,6 @@ body {
     transition: all 0.5s;
 }
 
-input{
-    color:#333;
-    
-}
-
-input:focus{
-    outline: none;
-    color:#333;
-}
 
 /*내용CSS*/
 section{
@@ -36,13 +27,14 @@ section{
 
 .content-box{
     font-weight: bold;
-
 }
 
+.buttonBox{
+    max-width: 700px;
+}
 
 .weather {
     width: 100%;
-    max-width: 650px!important;
     height: 100%;
     max-height:600px;
     position: relative;
@@ -51,10 +43,10 @@ section{
 
 .weather_item {
     width: 100%;
-    max-width: 500px;
-    min-width: 300px;;
+    max-width: 600px;
+    min-width: 300px;
     margin:0 auto;
-    border: 1px solid #eaeaea;
+
 }
 
 .cool {
@@ -123,7 +115,7 @@ section{
 /*font-action*/
 
 .font-action{
-    background-image: -webkit-linear-gradient(92deg, #f35626, #feab3a);
+    background-image: -webkit-linear-gradient(92deg, #f35626 , rgb(21 128 61));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     -webkit-animation: hue 10s infinite linear;
