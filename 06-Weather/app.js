@@ -1,13 +1,16 @@
 // api key - 89e3fe4c9f2cf5204d70b1b9bddc97fa
 //API 호출 URL - https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API key}
 const APIkey = '89e3fe4c9f2cf5204d70b1b9bddc97fa'
+let url=""
+
 let API = ""
 let API2 = ""
 let API3 = ""
+
 let CityURL = 'cityList-min.json'
 let Datas1, Datas2, Datas3, CityDatas = []
 
-let button  = document.querySelector('.buttonAction')
+let button  = document.querySelectorAll('.buttonAction')
 
 let Arr = [1, 2, 3]
 const getData = async () => {
@@ -39,9 +42,13 @@ const getData = async () => {
     }
 }
 
+button.forEach((i)=> {
+    i.addEventListener('click', (event) => menuButton(event))
+});
+
 const getApi = async () => {
 
-    let url = await 'https://api.openweathermap.org/data/2.5/weather?&appid='
+    url = await 'https://api.openweathermap.org/data/2.5/weather?&appid='
     API = `${url}${APIkey}&q=seoul`;
     API2 = `${url}${APIkey}&q=Daegu`;
     API3 = `${url}${APIkey}&q=Goyang`;
@@ -117,11 +124,26 @@ const City = async () => {
    for  await(const index of CityDatas) {
         if (index.country == 'KR') {
             if (index.name.includes('-do') && !index.name.includes('-dong')) {
-            
+                console.log(index.name)
             }
         }
     }
 
 }
+
+const menuButton = async (event) => {
+    let thisButton = event.target;
+    url = await 'https://api.openweathermap.org/data/2.5/weather?&appid='
+
+    if(thisButton.innerText == '경기도' ){
+     API = `${url}${APIkey}&q=Gyeonggi-do`;
+    } else if(thisButton.innerText == '강원도'){
+        API = `${url}${APIkey}&q=Gangwon-do`;
+    }
+
+    getData()
+}
+
+
 
 getApi();
