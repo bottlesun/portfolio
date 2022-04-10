@@ -47,8 +47,25 @@ section{
     max-width: 600px;
     min-width: 300px;
     margin:0 auto;
-
+    position: relative;
 }
+
+.closeBtn{
+    position: absolute;
+    cursor: pointer;
+    width:25px;
+    height: 25px;
+    font-weight: bold;
+    background-color: #fff;
+    border-radius: 50%;
+    z-index: 5;
+    right: -5px;
+    top: -5px;
+    border: 1px solid #eaeaea;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+
 
 .cool {
     background:linear-gradient(45deg, rgb(196 181 253),rgb(139 92 246));
