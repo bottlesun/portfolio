@@ -163,3 +163,19 @@ section{
       -webkit-filter: hue-rotate(-360deg);
     }
   }
+
+
+  /*error*/
+
+  .alert{
+      width:100%;
+      max-width: 1000px;
+      max-height: 200px;
+      height: 100vh;
+      background-color: #FF4500;
+      color:#fff;
+      line-height: 200px;
+      text-align: center;
+      font-weight: bold;
+      font-size: 2rem;
+  }
