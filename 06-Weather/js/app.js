@@ -31,8 +31,6 @@ button.forEach((i) => {
     i.addEventListener('click', (event) => menuButton(event))
 });
 
-
-
 const getData = async () => {
 
     try {
@@ -56,6 +54,7 @@ const getApi = async () => {
     url = await 'https://api.openweathermap.org/data/2.5/weather?&appid='
     API = `${url}${APIkey}&q=seoul`;
     getData()
+    console.log(API)
 }
 
 
@@ -174,21 +173,12 @@ const errorRender = (error) => {
 /* pagelation */
 const pagelation = () => {
     let pageNationHTML = "";
-    const dataGroup = 3;
-    const dataPage = 10;
-
-    totalPage = Math.ceil(DatasList.length / dataGroup);
-    if (dataGroup < totalPage) {
-        totalPage = dataGroup;
-    }
-
-    console.log(totalPage)
-    let last = totalPage * dataGroup;
-    if (last < totalPage) {
-        last = totalPage
-    }
-
-    let first = last - (dataGroup - 1);
+    let pageGroup = Math.ceil(Datas.length / 3);
+    let last = pageGroup * 3;
+    if (last > totalPage) {
+        // 마지막 그룹이 5개 이하이면
+        last = totalPage;
+      }
 
     for (let i = 1; i <= totalPage; i++) {
         pageNationHTML += `
