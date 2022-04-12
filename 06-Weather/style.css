@@ -18,10 +18,10 @@ body {
 
 /*내용CSS*/
 section{
-    height:100vh;
+    margin-top: 50px;
+    height:100%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
 }
 
@@ -40,12 +40,14 @@ section{
     max-height:600px;
     position: relative;
     text-align: center;
+    overflow: hidden;
 }
 
 .weather_item {
     width: 100%;
     max-width: 600px;
     min-width: 300px;
+    max-height: 200px;
     margin:0 auto;
     position: relative;
 }
@@ -59,8 +61,8 @@ section{
     background-color: #fff;
     border-radius: 50%;
     z-index: 5;
-    right: -5px;
-    top: -5px;
+    right: 10px;
+    top: 10px;
     border: 1px solid #eaeaea;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
@@ -128,7 +130,21 @@ section{
 .sub_info li span {
     margin-left:10px;
 }
+.pagination{
+    color:#fff;
+    display: flex;
+}
 
+.pagination li{
+    width:100%;
+    height: 100%;
+    cursor: pointer;
+}
+
+.pagination li.active{
+    background-color: #fff;
+    color: #6366f1;
+}
 
 /*font-action*/
 

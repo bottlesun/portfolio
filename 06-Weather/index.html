@@ -32,10 +32,10 @@
             </div>
             
         </div>
-        <div class="weather mx-auto mb-10 p-5 container mx-auto mt-10 drop-shadow-xl rounded
-            grid grid-flow-row-dense grid-rows-3 gap-5">
+        <div class="weather mx-auto mb-10 container mx-auto mt-10 drop-shadow-xl rounded
+            grid grid-flow-row-dense  gap-5">
       
-            <article class="weather_item rounded drop-shadow opacity-0 ">
+            <article class="weather_item rounded drop-shadow opacity-0 overflow-hidden">
                 <div class="main_info flex">
                     <div class="weather_icon"><i class="fa-solid fa-sun"></i></div>
                     <div class="weather_info flex gap-2">
@@ -51,8 +51,14 @@
                 </ul>
                 <div class="closeBtn"><i class="fa-solid fa-x"></i></div>
             </article>
-
         </div>
+        <nav class="pageWrap">
+            <ul class="pagination gap-2">
+                <li class="bg-indigo-500 shadow-lg py-1 px-4 shadow-indigo-500/50 p-2 py-2 rounded hover:bg-white hover:text-indigo-500"><a href="#">1</a></li>
+                <li class="bg-indigo-500 shadow-lg py-1 px-4 shadow-indigo-500/50 p-2 py-2 rounded hover:bg-white hover:text-indigo-500"><a href="#">2</a></li>
+                <li class="bg-indigo-500 shadow-lg py-1 px-4 shadow-indigo-500/50 p-2 py-2 rounded hover:bg-white hover:text-indigo-500"><a href="#">3</a></li>
+            </ul>
+        </nav>
     </section>
     <!--weather-->
 

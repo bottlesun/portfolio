@@ -7,8 +7,31 @@ let API = "";
 let Datas, Arr = [];
 let DatasList = [];
 
+let CityArr = [
+    { City: "Gyeonggi-do", name: '경기도', done: false },
+    { City: "Gangwon-do", name: '강원도', done: false },
+    { City: "Chungcheongbuk-do", name: '충청북도', done: false },
+    { City: "Chungcheongnam-do", name: '충청남도', done: false },
+    { City: "Jeollabuk-do", name: '전라북도', done: false },
+    { City: "Jeollanam-do", name: '전라남도', done: false },
+    { City: "Gyeongsangbuk-do", name: '경상북도', done: false },
+    { City: "Gyeongsangnam-do", name: '경상남도', done: false },
+    { City: "Jeju-do", name: '제주도', done: false },
+    { City: "Seoul", name: '서울', done: false },
+];
+
+let page = 1;
+let totalPage = 0;
+
 let button = document.querySelectorAll('.buttonAction')
 let closeBtn = document.querySelectorAll('.closeBtn');
+
+
+button.forEach((i) => {
+    i.addEventListener('click', (event) => menuButton(event))
+});
+
+
 
 const getData = async () => {
 
@@ -17,25 +40,21 @@ const getData = async () => {
 
         let data = response.data;
         Datas = data;
-        DatasList.push(Datas)
+        DatasList.unshift(Datas)
 
         render()
-
+        pagelation()
     } catch (error) {
         console.log(error)
     }
 }
 
-button.forEach((i) => {
-    i.addEventListener('click', (event) => menuButton(event))
-});
 
 
 const getApi = async () => {
 
     url = await 'https://api.openweathermap.org/data/2.5/weather?&appid='
     API = `${url}${APIkey}&q=seoul`;
-
     getData()
 }
 
@@ -47,7 +66,7 @@ const render = () => {
 
         for (let i = 0; i < list[no].weather.length; i++) {
             let description = list[no].weather[i].description;
-            createHTML += `<article class="weather_item rounded drop-shadow 
+            createHTML += `<article class="weather_item rounded drop-shadow overflow-hidden
             ${((list[no].main.feels_like - 273.15).toFixed(1) >= 20) ? "hot" : ((list[no].main.feels_like - 273.15).toFixed(1) <= 5) ? "cool" : 'soso'}">
         <div class="main_info flex" >
             <div class="weather_icon"><i class="fa-solid "></i></div>
@@ -101,18 +120,8 @@ const changeWeatherIcon = () => {
 
 /* 버튼 */
 const menuButton = async (event) => {
-    let CityName = [
-        { City: "Gyeonggi-do", name: '경기도', done: false },
-        { City: "Gangwon-do", name: '강원도', done: false },
-        { City: "Chungcheongbuk-do", name: '충청북도', done: false },
-        { City: "Chungcheongnam-do", name: '충청남도', done: false },
-        { City: "Jeollabuk-do", name: '전라북도', done: false },
-        { City: "Jeollanam-do", name: '전라남도', done: false },
-        { City: "Gyeongsangbuk-do", name: '경상북도', done: false },
-        { City: "Gyeongsangnam-do", name: '경상남도', done: false },
-        { City: "Jeju-do", name: '제주도', done: false },
-        { City: "Seoul", name: '서울', done: false },
-    ];
+
+    let CityName = CityArr;
 
 
     let thisButton = event.target;
@@ -128,15 +137,38 @@ const menuButton = async (event) => {
 
 /* 닫기 */
 const Clicks = async(id) => {
-    let list = DatasList;
-    for(let i = 0 ; i < list.length ; i++){
-        if(list[i].id == id){
-            list.splice(i, 1);
+    DatasList;
+    for(let i = 0 ; i < DatasList.length ; i++){
+        if(DatasList[i].id == id){
+            DatasList.splice(i, 1);
             break;
         }
     }
     render();
+    pagelation();
 }
 
+/* pagelation */
+const pagelation = () => {
+    let pageNationHTML = "";
+    totalPage = Math.ceil( DatasList.length / 3);
+    console.log(totalPage)
+    let last = totalPage * 3;
+    let first = last - 2;
+    console.log(DatasList)
+    for(let i = 1; i <= totalPage; i ++) {
+    pageNationHTML += `
+    <li class="${page == i ? 'active' : ""} bg-indigo-500 shadow-lg py-1 px-4 shadow-indigo-500/50 p-2 py-2 rounded hover:bg-white hover:text-indigo-500" onClick="moveTo(${i})">${i}</li>
+    `
+    }
+    document.querySelector('.pagination').innerHTML = pageNationHTML;
+
+}
+
+const moveTo = (pageNum) => {
+    page = pageNum;
+
+    
+}
 
 getApi();
