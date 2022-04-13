@@ -6,7 +6,8 @@ let url = "";
 let API = "";
 let Datas, Arr = [];
 let DatasList = [];
-let CityArr = [
+let FilterList = [];
+const CityArr = [
     { City: "Gyeonggi-do", name: '경기도', done: true },
     { City: "Gangwon-do", name: '강원도', done: true },
     { City: "Chungcheongbuk-do", name: '충청북도', done: true },
@@ -40,6 +41,20 @@ const getData = async () => {
         Datas = data;
         DatasList.unshift(Datas)
 
+        FilterList = DatasList.filter((item, i) => {
+            return (
+                DatasList.findIndex((item2, j) => {
+                return item.id === item2.id;
+              }) === i
+            );
+          });
+
+
+           totalPage = Math.ceil(FilterList.length / 3)
+           if(totalPage > 4){
+              totalPage = 4
+           }
+
         render()
         pagelation()
     } catch (error) {
@@ -52,18 +67,18 @@ const getData = async () => {
 const getApi = async () => {
 
     url = await 'https://api.openweathermap.org/data/2.5/weather?&appid='
-    API = `${url}${APIkey}&q=seoul`;
+    API = `${url}${APIkey}&q=${CityArr[9].City}`;
     getData()
-    console.log(API)
 }
 
 
 const render = () => {
     try {
-        let list = DatasList;
+        let list = FilterList;
         let createHTML = "";
+        console.log(FilterList)
+  
         for (let no = 0; no < list.length; no++) {
-
             for (let i = 0; i < list[no].weather.length; i++) {
                 let description = list[no].weather[i].description;
                 createHTML += `<article class="weather_item rounded drop-shadow overflow-hidden
@@ -97,7 +112,7 @@ const render = () => {
 
 /* 날씨 아이콘 변경 */
 const changeWeatherIcon = () => {
-    let list = DatasList;
+    let list = FilterList;
     let weather_icon = document.querySelectorAll('.weather_icon i');
     weather_icon.forEach((icon, v) => {
         for (let i = 0; i < list[v].weather.length; i++) {
@@ -145,10 +160,10 @@ const menuButton = async (event) => {
 
 /* 닫기 */
 const Clicks = async (id) => {
-    DatasList;
-    for (let i = 0; i < DatasList.length; i++) {
-        if (DatasList[i].id == id) {
-            DatasList.splice(i, 1);
+    FilterList;
+    for (let i = 0; i < FilterList.length; i++) {
+        if (FilterList[i].id == id) {
+            FilterList.splice(i, 1);
             break;
         }
     }
@@ -173,7 +188,8 @@ const errorRender = (error) => {
 /* pagelation */
 const pagelation = () => {
     let pageNationHTML = "";
-    let pageGroup = Math.ceil(Datas.length / 3);
+    let pageGroup = Math.ceil(10 / 3);
+
     let last = pageGroup * 3;
     if (last > totalPage) {
         // 마지막 그룹이 5개 이하이면
@@ -191,7 +207,6 @@ const pagelation = () => {
 
 const moveTo = (pageNum) => {
     page = pageNum;
-    console.log(page)
     getData()
 }
 
