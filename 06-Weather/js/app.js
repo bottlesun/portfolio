@@ -77,31 +77,30 @@ const render = () => {
         let list = FilterList;
         let createHTML = "";
         console.log(FilterList)
-  
-        for (let no = 0; no < list.length; no++) {
-            for (let i = 0; i < list[no].weather.length; i++) {
-                let description = list[no].weather[i].description;
-                createHTML += `<article class="weather_item rounded drop-shadow overflow-hidden
-                ${((list[no].main.feels_like - 273.15).toFixed(1) >= 20) ? "hot" : ((list[no].main.feels_like - 273.15).toFixed(1) <= 5) ? "cool" : 'soso'}">
-            <div class="main_info flex" >
-                <div class="weather_icon"><i class="fa-solid "></i></div>
-                <div class="weather_info flex gap-2">
-                    <div class="flex centers gap-2"><i class="fa-solid fa-temperature-half"></i> <span>${(list[no].main.feels_like - 273.15).toFixed(1)}℃</span></div>
-                    <p>${description}</p>
-                    <p class="weatherCity"> ${list[no].name}  , ${list[no].sys.country == "KR" ? "한국" : list[no].sys.country}</p>
-                </div>
+        createHTML = list.map((list, i) => {
+            let description = list.weather[0].description;
+            return `<article class="weather_item rounded drop-shadow overflow-hidden
+            ${((list.main.feels_like - 273.15).toFixed(1) >= 20) ? "hot" : ((list.main.feels_like - 273.15).toFixed(1) <= 5) ? "cool" : 'soso'}">
+        <div class="main_info flex" >
+            <div class="weather_icon"><i class="fa-solid "></i></div>
+            <div class="weather_info flex gap-2">
+                <div class="flex centers gap-2"><i class="fa-solid fa-temperature-half"></i> <span>${(list.main.feels_like - 273.15).toFixed(1)}℃</span></div>
+                <p>${description}</p>
+                <p class="weatherCity"> ${list.name}  , ${list.sys.country == "KR" ? "한국" : list.sys.country}</p>
             </div>
-            <ul class="sub_info centers flex mx-auto p-5 bg-white">
-                <li><i class="fa-solid fa-temperature-arrow-up"><span>${(list[no].main.temp_max - 273.15).toFixed(1)}℃</span></i></li>
-                <li><i class="fa-solid fa-temperature-arrow-down"><span>${(list[no].main.temp_min - 273.15).toFixed(1)}℃</span></i></li>
-            </ul>
-            <div class="closeBtn" onclick="Clicks(${list[no].id})"><i class="fa-solid fa-x"></i></div>
-        </article>
-        `
-            }
-        }
+        </div>
+        <ul class="sub_info centers flex mx-auto p-5 bg-white">
+            <li><i class="fa-solid fa-temperature-arrow-up"><span>${(list.main.temp_max - 273.15).toFixed(1)}℃</span></i></li>
+            <li><i class="fa-solid fa-temperature-arrow-down"><span>${(list.main.temp_min - 273.15).toFixed(1)}℃</span></i></li>
+        </ul>
+    
+    </article>
+    `
+        }).join('');
+        //    <div class="closeBtn" onclick="Clicks(${list.id})"><i class="fa-solid fa-x"></i></div>
         document.querySelector('.weather').innerHTML = createHTML;
         changeWeatherIcon();
+
     } catch (error) {
         console.log(error.message);
         errorRender(error.message)
