@@ -52,6 +52,7 @@ const getNews = async () => {
             news = data.articles;
             total_page = data.total_pages;
             page = data.page;
+            console.log(page)
  
             console.log(news);
             render();

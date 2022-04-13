@@ -8,6 +8,7 @@ let Datas, Arr = [];
 let DatasList = [];
 let FilterList = [];
 const CityArr = [
+    { City: "Seoul", name: '서울', done: false },
     { City: "Gyeonggi-do", name: '경기도', done: true },
     { City: "Gangwon-do", name: '강원도', done: true },
     { City: "Chungcheongbuk-do", name: '충청북도', done: true },
@@ -17,12 +18,13 @@ const CityArr = [
     { City: "Gyeongsangbuk-do", name: '경상북도', done: true },
     { City: "Gyeongsangnam-do", name: '경상남도', done: true },
     { City: "Jeju-do", name: '제주도', done: true },
-    { City: "Seoul", name: '서울', done: false },
 ];
 
-
-let page = 1;
-let totalPage = 0;
+let page = 1
+const totalCount = 10
+const pageCount = 3
+const limit = 3
+//const offset = (page-1) * limit
 
 let button = document.querySelectorAll('.buttonAction')
 let closeBtn = document.querySelectorAll('.closeBtn');
@@ -39,22 +41,16 @@ const getData = async () => {
 
         let data = response.data;
         Datas = data;
-        DatasList.unshift(Datas)
+        DatasList.push(Datas)
 
         FilterList = DatasList.filter((item, i) => {
             return (
                 DatasList.findIndex((item2, j) => {
-                return item.id === item2.id;
-              }) === i
+                    return item.id === item2.id;
+                }) === i
             );
-          });
-
-
-           totalPage = Math.ceil(FilterList.length / 3)
-           if(totalPage > 4){
-              totalPage = 4
-           }
-
+        });
+    
         render()
         pagelation()
     } catch (error) {
@@ -67,17 +63,23 @@ const getData = async () => {
 const getApi = async () => {
 
     url = await 'https://api.openweathermap.org/data/2.5/weather?&appid='
-    API = `${url}${APIkey}&q=${CityArr[9].City}`;
-    getData()
+    CityArr.map((num) => {
+        API = `${url}${APIkey}&q=${num.City}`;
+        getData()
+    })
+
+    
 }
 
 
 const render = () => {
     try {
         let list = FilterList;
-        let createHTML = "";
-        console.log(FilterList)
-        createHTML = list.map((list, i) => {
+        let createHTML = ""; 
+ 
+
+  
+        createHTML = list.slice(((page-1) * limit), ((page-1) * limit) + limit).map((list, i) => {
             let description = list.weather[0].description;
             return `<article class="weather_item rounded drop-shadow overflow-hidden
             ${((list.main.feels_like - 273.15).toFixed(1) >= 20) ? "hot" : ((list.main.feels_like - 273.15).toFixed(1) <= 5) ? "cool" : 'soso'}">
@@ -97,7 +99,6 @@ const render = () => {
     </article>
     `
         }).join('');
-        //    <div class="closeBtn" onclick="Clicks(${list.id})"><i class="fa-solid fa-x"></i></div>
         document.querySelector('.weather').innerHTML = createHTML;
         changeWeatherIcon();
 
@@ -136,7 +137,7 @@ const changeWeatherIcon = () => {
 
 }
 
-/* 버튼 */
+/* 버튼 
 const menuButton = async (event) => {
 
     let CityName = CityArr;
@@ -155,24 +156,8 @@ const menuButton = async (event) => {
             console.log('중복')
         }
     }
-}
+} */
 
-/* 닫기 */
-const Clicks = async (id) => {
-    FilterList;
-    for (let i = 0; i < FilterList.length; i++) {
-        if (FilterList[i].id == id) {
-            FilterList.splice(i, 1);
-            break;
-        }
-    }
-
-    for (let i = 0; i < CityArr.length; i++) {
-        CityArr[i].done = true;
-    }
-    render();
-    pagelation();
-}
 
 const errorRender = (error) => {
     let errorHTML = `
@@ -187,25 +172,32 @@ const errorRender = (error) => {
 /* pagelation */
 const pagelation = () => {
     let pageNationHTML = "";
-    let pageGroup = Math.ceil(10 / 3);
+    let totalPage = Math.ceil(totalCount / limit)
+    let pageGroup = Math.ceil(page / pageCount)
 
-    let last = pageGroup * 3;
+    let last = pageGroup * pageCount;
     if (last > totalPage) {
         // 마지막 그룹이 5개 이하이면
         last = totalPage;
-      }
+    }
+    let first = last - (pageCount - 1); 
 
-    for (let i = 1; i <= totalPage; i++) {
+    pageNationHTML = page == 1 ? "" : `<li class=" bg-indigo-500 shadow-lg py-1 px-4 shadow-indigo-500/50 py-2 rounded hover:bg-white hover:text-indigo-500" onClick="moveTo(${page-1})">&lt</li>`
+
+    for (let i = first; i <= last; i++) {
         pageNationHTML += `
     <li class="${page == i ? 'active' : ""} bg-indigo-500 shadow-lg py-1 px-4 shadow-indigo-500/50 p-2 py-2 rounded hover:bg-white hover:text-indigo-500" onClick="moveTo(${i})">${i}</li>
     `
     }
+
+    pageNationHTML += page == totalPage ? "" : page >= 1 ? `<li class=" bg-indigo-500 shadow-lg py-1 px-4 shadow-indigo-500/50 py-2 rounded hover:bg-white hover:text-indigo-500" onClick="moveTo(${page+1})">&gt</li>` : ""
     document.querySelector('.pagination').innerHTML = pageNationHTML;
 
 }
 
 const moveTo = (pageNum) => {
     page = pageNum;
+
     getData()
 }
 
