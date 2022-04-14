@@ -8,23 +8,23 @@ let Datas, Arr = [];
 let DatasList = [];
 let FilterList = [];
 const CityArr = [
-    { City: "Seoul", name: '서울', done: false },
-    { City: "Gyeonggi-do", name: '경기도', done: true },
-    { City: "Gangwon-do", name: '강원도', done: true },
-    { City: "Chungcheongbuk-do", name: '충청북도', done: true },
-    { City: "Chungcheongnam-do", name: '충청남도', done: true },
-    { City: "Jeollabuk-do", name: '전라북도', done: true },
-    { City: "Jeollanam-do", name: '전라남도', done: true },
-    { City: "Gyeongsangbuk-do", name: '경상북도', done: true },
-    { City: "Gyeongsangnam-do", name: '경상남도', done: true },
-    { City: "Jeju-do", name: '제주도', done: true },
+    { City: "Seoul", name: '서울' },
+    { City: "Gyeonggi-do", name: '경기도' },
+    { City: "Gangwon-do", name: '강원도' },
+    { City: "Chungcheongbuk-do", name: '충청북도' },
+    { City: "Chungcheongnam-do", name: '충청남도'},
+    { City: "Jeollabuk-do", name: '전라북도' },
+    { City: "Jeollanam-do", name: '전라남도' },
+    { City: "Gyeongsangbuk-do", name: '경상북도'},
+    { City: "Gyeongsangnam-do", name: '경상남도'},
+    { City: "Jeju-do", name: '제주도'},
 ];
 
 let page = 1
 const totalCount = 10
 const pageCount = 3
 const limit = 3
-//const offset = (page-1) * limit
+const offset = (page-1) * limit
 
 let button = document.querySelectorAll('.buttonAction')
 let closeBtn = document.querySelectorAll('.closeBtn');
@@ -73,22 +73,22 @@ const getApi = async () => {
 
 
 const render = () => {
+
     try {
+
         let list = FilterList;
         let createHTML = ""; 
- 
 
-  
         createHTML = list.slice(((page-1) * limit), ((page-1) * limit) + limit).map((list, i) => {
             let description = list.weather[0].description;
             return `<article class="weather_item rounded drop-shadow overflow-hidden
-            ${((list.main.feels_like - 273.15).toFixed(1) >= 20) ? "hot" : ((list.main.feels_like - 273.15).toFixed(1) <= 5) ? "cool" : 'soso'}">
+            ${((list.main.temp - 273.15).toFixed(1) >= 20) ? "hot" : ((list.main.temp - 273.15).toFixed(1) <= 5) ? "cool" : 'soso'}">
         <div class="main_info flex" >
             <div class="weather_icon"><i class="fa-solid "></i></div>
             <div class="weather_info flex gap-2">
-                <div class="flex centers gap-2"><i class="fa-solid fa-temperature-half"></i> <span>${(list.main.feels_like - 273.15).toFixed(1)}℃</span></div>
+                <div class="flex centers gap-2"><i class="fa-solid fa-temperature-half"></i> <span>${(list.main.temp - 273.15).toFixed(1)}℃</span></div>
                 <p>${description}</p>
-                <p class="weatherCity"> ${list.name}  , ${list.sys.country == "KR" ? "한국" : list.sys.country}</p>
+                <p class="weatherCity"> ${list.name} , ${list.sys.country == "KR" ? "한국" : list.sys.country}</p>
             </div>
         </div>
         <ul class="sub_info centers flex mx-auto p-5 bg-white">
@@ -137,26 +137,24 @@ const changeWeatherIcon = () => {
 
 }
 
-/* 버튼 
+
+/* 버튼 */
 const menuButton = async (event) => {
 
     let CityName = CityArr;
 
     let thisButton = event.target;
-    url = await 'https://api.openweathermap.org/data/2.5/weather?&appid='
+    
+    let ThisTemp =  FilterList.map((v,i) => {
+     return thisButton.innerText == CityName[i].name ?  (v.main.temp - 273.15).toFixed(1)  : ""
+    }).join('');
 
-    for (let i = 0; i < CityName.length; i++) {
-        if (CityName[i].done) {
-            if (thisButton.innerText == CityName[i].name) {
-                API = `${url}${APIkey}&q=${CityName[i].City}`;
-                getData();
-                return CityName[i].done = false
-            }
-        } else {
-            console.log('중복')
-        }
-    }
-} */
+    
+    document.querySelector('.weather_text').innerHTML =
+    ` 오늘 ${thisButton.innerText}의 온도는?
+    <span class="font-bold ${ThisTemp >= 20 ? "text-red-400" :  ThisTemp <= 5 ? "text-blue-700" : 'text-green-600' }">${ThisTemp}</span>
+    ℃ 입니다. `
+} 
 
 
 const errorRender = (error) => {
@@ -182,15 +180,15 @@ const pagelation = () => {
     }
     let first = last - (pageCount - 1); 
 
-    pageNationHTML = page == 1 ? "" : `<li class=" bg-indigo-500 shadow-lg py-1 px-4 shadow-indigo-500/50 py-2 rounded hover:bg-white hover:text-indigo-500" onClick="moveTo(${page-1})">&lt</li>`
+    pageNationHTML = page == 1 ? "" : `<li class=" bg-indigo-500 shadow-lg py-1 px-4  py-2 rounded hover:bg-white hover:text-indigo-500" onClick="moveTo(${page-1})">&lt</li>`
 
     for (let i = first; i <= last; i++) {
         pageNationHTML += `
-    <li class="${page == i ? 'active' : ""} bg-indigo-500 shadow-lg py-1 px-4 shadow-indigo-500/50 p-2 py-2 rounded hover:bg-white hover:text-indigo-500" onClick="moveTo(${i})">${i}</li>
+    <li class="${page == i ? 'active' : ""} bg-indigo-500 shadow-lg py-1 px-4 -2 py-2 rounded hover:bg-white hover:text-indigo-500" onClick="moveTo(${i})">${i}</li>
     `
     }
 
-    pageNationHTML += page == totalPage ? "" : page >= 1 ? `<li class=" bg-indigo-500 shadow-lg py-1 px-4 shadow-indigo-500/50 py-2 rounded hover:bg-white hover:text-indigo-500" onClick="moveTo(${page+1})">&gt</li>` : ""
+    pageNationHTML += page == totalPage ? "" : page >= 1 ? `<li class=" bg-indigo-500 shadow-lg py-1 px-4 py-2 rounded hover:bg-white hover:text-indigo-500" onClick="moveTo(${page+1})">&gt</li>` : ""
     document.querySelector('.pagination').innerHTML = pageNationHTML;
 
 }
