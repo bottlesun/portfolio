@@ -10,9 +10,9 @@
 
 <body>
     <div id="root">
-        <word-relay></word-relay>
-        <word-relay></word-relay>
-        <word-relay></word-relay>
+        <word-relay start-word="제로초"></word-relay>
+        <word-relay start-word="초밥"></word-relay>
+        <word-relay start-word="바보"></word-relay>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
@@ -34,9 +34,10 @@
         <div>{{result}}</div>
         </div>
         `,
+        props :['start-word'],
         data() {
             return{
-                word : '제로초',
+                word : this.startWord,
                 result : '',
                 value : '',
             }
