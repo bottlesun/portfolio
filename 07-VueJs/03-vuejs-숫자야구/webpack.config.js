@@ -1,8 +1,13 @@
 // webpack 설정을 적는것 (webpacking)
-const VueLoaderPlugin = require('vue-loader/lib/plugin')
+const { VueLoaderPlugin } = require('vue-loader');
 const path = require('path'); // node 내장 모듈 자동으로 디렉토리 절대 경로를 찾아준다.
 
 module.exports = {
+    mode:'development', // 개발중 - development  배포중 - production
+    devtool : 'eval', // 개발중 - eval  배포중 -  hidden-source-map
+    resolve : {
+        extensions: ['.js', '.vue'], // 확장자 처리
+    },
     entry: { // 가장중요한 핵심 파일
         app: path.join(__dirname ,'main.js'),
     },
