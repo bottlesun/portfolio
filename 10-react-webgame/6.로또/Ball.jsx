@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 
-const Ball = memo(({ number }) => {
+const Ball = memo(({ number }) => { // hoc
   let background;
   if (number <= 10) {
     background = 'red';
