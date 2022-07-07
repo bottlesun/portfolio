@@ -7,7 +7,7 @@ import useSWR from "swr";
 import fetcher from "@utils/fetcher";
 
 const SingUp = () => {
-  const {data, mutate} = useSWR('http://localhost:3095/api/users', fetcher);
+  const {data, mutate} = useSWR('/api/users', fetcher);
 
   const [email, onChangeEmail] = useInput('');
   const [nickname, onChangeNickname] = useInput('');
@@ -52,7 +52,7 @@ const SingUp = () => {
   }, [email, nickname, password, passwordCheck, mismatchError]);
 
   if (data) {
-    return <Redirect to='workspace/channel'/>
+    return <Redirect to='workspace/sleact/channel/일반'/>
   }
 
 

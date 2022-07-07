@@ -1,20 +1,19 @@
 import path from 'path';
 import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin';
-import webpack, {Configuration as WebpackConfiguration} from "webpack";
-import {Configuration as WebpackDevServerConfiguration} from "webpack-dev-server";
+import webpack, { Configuration as WebpackConfiguration } from 'webpack';
+import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
+import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
+import { Configuration as WebpackDevServerConfiguration } from 'webpack-dev-server';
 
 interface Configuration extends WebpackConfiguration {
   devServer?: WebpackDevServerConfiguration;
 }
-
-import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
-
 const isDevelopment = process.env.NODE_ENV !== 'production';
 
 const config: Configuration = {
   name: 'sleact',
   mode: isDevelopment ? 'development' : 'production',
-  devtool: isDevelopment ? 'hidden-source-map' : 'inline-source-map',
+  devtool: !isDevelopment ? 'hidden-source-map' : 'inline-source-map',
   resolve: {
     extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
     alias: {
@@ -29,6 +28,7 @@ const config: Configuration = {
   entry: {
     app: './client',
   },
+  target: ['web', 'es5'],
   module: {
     rules: [
       {
@@ -39,7 +39,7 @@ const config: Configuration = {
             [
               '@babel/preset-env',
               {
-                targets: {browsers: ['IE 10']},
+                targets: { browsers: ['IE 10'] },
                 debug: isDevelopment,
               },
             ],
@@ -48,14 +48,13 @@ const config: Configuration = {
           ],
           env: {
             development: {
-              plugins: [['@emotion', {sourceMaps: true}], require.resolve('react-refresh/babel')],
+              plugins: [['@emotion/babel-plugin', { sourceMap: true }], require.resolve('react-refresh/babel')],
             },
             production: {
-              plugins: ['@emotion'],
-            }
+              plugins: ['@emotion/babel-plugin'],
+            },
           },
         },
-        exclude: path.join(__dirname, 'node_modules'),
       },
       {
         test: /\.css?$/,
@@ -70,7 +69,7 @@ const config: Configuration = {
       //   files: "./src/**/*",
       // },
     }),
-    new webpack.EnvironmentPlugin({NODE_ENV: isDevelopment ? 'development' : 'production'}),
+    new webpack.EnvironmentPlugin({ NODE_ENV: isDevelopment ? 'development' : 'production' }),
   ],
   output: {
     path: path.join(__dirname, 'dist'),
@@ -78,28 +77,34 @@ const config: Configuration = {
     publicPath: '/dist/',
   },
   devServer: {
-    historyApiFallback: true, // react router
+    historyApiFallback: true,
     port: 3090,
-    devMiddleware: {publicPath: '/dist/'},
-    static: {directory: path.resolve(__dirname)},
-    // proxy: { // 개발 환경에서만 사용
-    //   '/api/': { // 프론트에서 api 요청은 3095가 보낸것 처럼 취급 하겠다.
-    //     target: 'http://localhost:3095',
-    //     changeOrigin: true
-    //   }
-    // }
+    devMiddleware: { publicPath: '/dist/' },
+    static: { directory: path.resolve(__dirname) },
+    proxy: {
+      '/api/': {
+        target: 'http://localhost:3095',
+        changeOrigin: true,
+        ws: true,
+      },
+    },
   },
 };
 
 if (isDevelopment && config.plugins) {
   config.plugins.push(new webpack.HotModuleReplacementPlugin());
-  config.plugins.push(new ReactRefreshWebpackPlugin({
-    overlay: {
-      useURLPolyfill: true
-    }
-  }));
+  config.plugins.push(
+    new ReactRefreshWebpackPlugin({
+      overlay: {
+        useURLPolyfill: true,
+      },
+    }),
+  );
+  config.plugins.push(new BundleAnalyzerPlugin({ analyzerMode: 'server', openAnalyzer: false }));
 }
 if (!isDevelopment && config.plugins) {
+  config.plugins.push(new webpack.LoaderOptionsPlugin({ minimize: true }));
+  config.plugins.push(new BundleAnalyzerPlugin({ analyzerMode: 'static' }));
 }
 
 export default config;
