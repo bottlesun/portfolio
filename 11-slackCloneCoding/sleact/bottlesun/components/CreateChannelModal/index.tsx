@@ -20,15 +20,15 @@ const CreateChannelModal: React.FC<Props> = ({show, onCloseModal, setShowCreateC
   const params = useParams<{ workspace?: string }>();
   const {workspace} = params;
 
-  const {data: userData, mutate} = useSWR<IUser | false>('http://localhost:3095/api/users', fetcher, {
+  const {data: userData, mutate} = useSWR<IUser | false>('/api/users', fetcher, {
     dedupingInterval: 1000
   });
-  const { data: channelData ,mutate : channelMutate } = useSWR<IChannel[]>(userData ? `http://localhost:3095/api/workspaces/${workspace}/channels` : null, fetcher);
+  const { data: channelData ,mutate : channelMutate } = useSWR<IChannel[]>(userData ? `/api/workspaces/${workspace}/channels` : null, fetcher);
 
 
   const onCreateChannel = useCallback((e) => {
     e.preventDefault()
-    axios.post(`http://localhost:3095/api/workspaces/${workspace}/channels`, {
+    axios.post(`/api/workspaces/${workspace}/channels`, {
       name: newChannel
     }, {
       withCredentials: true

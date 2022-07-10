@@ -3,15 +3,10 @@ import { IChannel, IUser } from '@typings/db';
 import fetcher from '@utils/fetcher';
 import React, { FC, useCallback, useState } from 'react';
 import { useParams } from 'react-router';
-import {NavLink} from "react-router-dom";
 import useSWR from 'swr';
+import EachChannel from "@components/EachChannel";
 
-interface Props {
-  channelData?: IChannel[];
-  userData?: IUser;
-}
-
-const ChannelList: FC<Props> = () => {
+const ChannelList: FC = () => {
   const { workspace } = useParams<{ workspace?: string }>();
   const [channelCollapse, setChannelCollapse] = useState(false);
   const { data: userData } = useSWR<IUser>('/api/users', fetcher, {
@@ -35,12 +30,12 @@ const ChannelList: FC<Props> = () => {
         </CollapseButton>
         <span>Channels</span>
       </h2>
-      {/*<div>*/}
-      {/*  {!channelCollapse &&*/}
-      {/*    channelData?.map((channel) => {*/}
-      {/*      return <EachChannel key={channel.id} channel={channel} />;*/}
-      {/*    })}*/}
-      {/*</div>*/}
+      <div>
+        {!channelCollapse &&
+          channelData?.map((channel) => {
+            return <EachChannel key={channel.name} channel={channel} />;
+          })}
+      </div>
     </>
   );
 };

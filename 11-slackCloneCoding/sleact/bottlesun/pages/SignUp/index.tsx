@@ -55,7 +55,6 @@ const SingUp = () => {
     return <Redirect to='workspace/sleact/channel/일반'/>
   }
 
-
   return (
     <div id="container">
       <Header>Sleact</Header>
