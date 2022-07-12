@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import gravatar from 'gravatar';
 import useSWR from "swr";
 import axios from "axios";
@@ -34,6 +34,7 @@ import {
   AddButton,
   WorkspaceModal,
 } from "@layouts/Workspace/styles";
+import useSocket from "@hooks/useSocket";
 
 const Channel = loadable(() => import('@pages/Channel'))
 const DirectMessage = loadable(() => import('@pages/DirectMessage'))
@@ -58,6 +59,20 @@ const Workspace = () => {
   const [showInviteChannelModal, setShowInviteChannelModal] = useState(false);
   const [newWorkspace, onChangeNewWorkspace, setNewWorkspace] = useInput('');
   const [newUrl, onChangeNewUrl, setNewUrl] = useInput('');
+  const [socket, disconnect] = useSocket(workspace);
+
+  useEffect(() => {
+    if (channelData && userData && socket) {
+      console.log(socket)
+      socket.emit('login', {id: userData.id, channels: channelData.map((v) => v.id)})
+    }
+  }, [socket, channelData, userData]);
+
+  useEffect(() => {
+    return () => {
+      disconnect();
+    }
+  }, [workspace]);
 
 
   const onLogout = useCallback(() => {
@@ -110,7 +125,7 @@ const Workspace = () => {
           toast.error(error.response?.data, {position: 'bottom-center'});
         });
     },
-    [newWorkspace, newUrl],
+    [newWorkspace, newUrl, mutate],
   );
 
   const onCloseModal = useCallback(() => {
@@ -182,7 +197,7 @@ const Workspace = () => {
                 <button onClick={onLogout}>로그아웃</button>
               </WorkspaceModal>
             </Menu>
-            <ChannelList />
+            <ChannelList/>
             <DMList/>
           </MenuScroll>
         </Channels>

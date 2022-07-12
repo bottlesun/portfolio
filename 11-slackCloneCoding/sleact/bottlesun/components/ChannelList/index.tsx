@@ -4,7 +4,7 @@ import fetcher from '@utils/fetcher';
 import React, { FC, useCallback, useState } from 'react';
 import { useParams } from 'react-router';
 import useSWR from 'swr';
-import EachChannel from "@components/EachChannel";
+import EachChannel from '@components/EachChannel';
 
 const ChannelList: FC = () => {
   const { workspace } = useParams<{ workspace?: string }>();

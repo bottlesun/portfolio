@@ -6,18 +6,19 @@ import fetcher from '@utils/fetcher';
 import React, {FC, useCallback, useEffect, useState} from 'react';
 import {useParams} from 'react-router';
 import useSWR from 'swr';
-import {NavLink, useLocation} from 'react-router-dom';
+import useSocket from '@hooks/useSocket';
 
 const DMList = () => {
   const {workspace} = useParams<{ workspace?: string }>();
   const {data: userData} = useSWR<IUser>('/api/users', fetcher, {
     dedupingInterval: 2000, // 2초
   });
-  const {data: memberData} = useSWR<IUserWithOnline[]>(
+  const { data: memberData } = useSWR<IUserWithOnline[]>(
     userData ? `/api/workspaces/${workspace}/members` : null,
     fetcher,
   );
-  // const [socket] = useSocket(workspace);
+
+  const [socket] = useSocket(workspace);
   const [channelCollapse, setChannelCollapse] = useState(false);
   const [onlineList, setOnlineList] = useState<number[]>([]);
 
@@ -30,16 +31,16 @@ const DMList = () => {
     setOnlineList([]);
   }, [workspace]);
 
-  // useEffect(() => {
-  //   socket?.on('onlineList', (data: number[]) => {
-  //     setOnlineList(data);
-  //   });
-  //   console.log('socket on dm', socket?.hasListeners('dm'), socket);
-  //   return () => {
-  //     console.log('socket off dm', socket?.hasListeners('dm'));
-  //     socket?.off('onlineList');
-  //   };
-  // }, [socket]);
+  useEffect(() => {
+    socket?.on('onlineList', (data: number[]) => {
+      setOnlineList(data);
+    });
+    //console.log('socket on dm', socket?.hasListeners('dm'), socket);
+    return () => {
+      //console.log('socket off dm', socket?.hasListeners('dm'));
+      socket?.off('onlineList');
+    };
+  }, [socket]);
 
   return (
     <>

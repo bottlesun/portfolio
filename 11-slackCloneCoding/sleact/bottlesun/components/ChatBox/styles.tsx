@@ -1,11 +1,10 @@
 import styled from '@emotion/styled';
-import { MentionsInput } from 'react-mentions';
+import {MentionsInput} from 'react-mentions';
 
 export const ChatArea = styled.div`
   display: flex;
   width: 100%;
-  padding: 20px;
-  padding-top: 0;
+  padding: 0 20px 20px;
 `;
 
 export const Form = styled.form`
@@ -16,13 +15,24 @@ export const Form = styled.form`
   border: 1px solid rgb(29, 28, 29);
 `;
 
-export const MentionsTextarea = styled.div`
+export const MentionsTextarea = styled(MentionsInput)`
   font-family: Slack-Lato, appleLogo, sans-serif;
   font-size: 15px;
+  width: 100%;
   padding: 8px 9px;
+  border: none;
+  resize: none;
+  outline: none !important;
+
+  & :focus {
+    border: none;
+    outline: none;
+  }
+
   & strong {
     background: skyblue;
   }
+
   & textarea {
     height: 44px;
     padding: 9px 10px !important;
@@ -32,6 +42,7 @@ export const MentionsTextarea = styled.div`
     line-height: 22px;
     border: none;
   }
+
   & ul {
     border: 1px solid lightgray;
     max-height: 200px;
@@ -68,12 +79,14 @@ export const EachMention = styled.button<{ focus: boolean }>`
   align-items: center;
   color: rgb(28, 29, 28);
   width: 100%;
+
   & img {
     margin-right: 5px;
   }
-  ${({ focus }) =>
-    focus &&
-    `
+
+  ${({focus}) =>
+          focus &&
+          `
     background: #1264a3;
     color: white;
   `};
