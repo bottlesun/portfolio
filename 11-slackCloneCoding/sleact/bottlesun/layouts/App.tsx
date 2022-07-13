@@ -20,6 +20,7 @@ const App = () => (
     <Route path="/workspace/:workspace" component={Workspace} />
     {/* /workspace/:workspace  라우트 파라미터는 제일 마지막으로 넣어야 한다 */}
   </Switch>
+
 );
 
 export default App;
