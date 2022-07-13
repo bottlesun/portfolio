@@ -132,8 +132,9 @@ const Channel = () => {
     };
   }, [socket, onMessage]);
 
-  useEffect(() => {
+  useEffect(() => { // 페이지가 로딩 될때,
     localStorage.setItem(`${workspace}-${channel}`, new Date().getTime().toString());
+    //`${workspace}-${channel}` 로 현재 시간 기록
   }, [workspace, channel]);
 
   const onClickInviteChannel = useCallback(() => {
@@ -167,6 +168,7 @@ const Channel = () => {
       axios.post(`/api/workspaces/${workspace}/channels/${channel}/images`, formData).then(() => {
         setDragOver(false);
         localStorage.setItem(`${workspace}-${channel}`, new Date().getTime().toString());
+        mutateChat();
       });
     },
     [workspace, channel],

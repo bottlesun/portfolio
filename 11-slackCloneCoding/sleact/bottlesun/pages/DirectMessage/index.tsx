@@ -102,6 +102,10 @@ const DirectMessage = () => {
     }
   }, [chatData])
 
+  useEffect(() => {
+    localStorage.setItem(`${workspace}-${id}`, new Date().getTime().toString());
+  }, [workspace, id]);
+
   const onDrop = useCallback(
     (e) => {
       e.preventDefault();
