@@ -1,5 +1,4 @@
 import EachDM from '@components/EachDM';
-// import useSocket from '@hooks/useSocket';
 import {CollapseButton} from '@components/DMList/styles';
 import {IDM, IUser, IUserWithOnline} from '@typings/db';
 import fetcher from '@utils/fetcher';
