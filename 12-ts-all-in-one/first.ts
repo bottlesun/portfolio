@@ -269,6 +269,7 @@ add(1,2) // 3
 add('1' , '2') //12
 */
 
+<<<<<<< HEAD
 // 코드를 보고 타입 만들어보기
 // 코드 대로 작성 후 타입을 하나씩 추가
 interface Arr<T> {
@@ -515,3 +516,43 @@ type I = InstanceType<typeof CPI>
 
 const NI: CPI = new CPI('123', 456, true); // 인스턴스(new)
 */
+=======
+interface Array<T> {
+  forEach(callbackfn : (value : T , index:number , array : T[]) => void , thisArg?: any) : void;
+  map<U>(callbackfn: (value: T, index: number, array: T[]) => U, thisArg?: any): U[];
+  filter<S extends T>(predicate: (value: T, index: number, array: T[]) => value is S, thisArg?: any): S[];
+  filter(predicate: (value: T, index: number, array: T[]) => unknown, thisArg?: any): T[];
+
+}
+// generic T 덕분에 첫 타입이 정해지면 다른 타입의 값을 자동으로 추론 해준다.
+const genericA : Array<number> = [1,2,3];
+genericA.forEach((value) => {console.log(value)});
+['1',"2",'3'].forEach((value) => {console.log(value)});
+[true,true,false].forEach((value) => {console.log(value)});
+['123',123,false].forEach((value) => {console.log(value)});
+
+const strings = [1,2,3].map((item) => item.toString());
+
+//  filter<number extends number>(predicate: (value: number, index: number, array: number[]) => value is number, thisArg?: any): number[];
+const filtered = [1,2,3,4,5].filter((v) => v % 2); // v % 2 = number
+
+// 타입추론 string[] string 이 나와야 하는데 (string | number) 가 나온다.타입추론을 제대로 못찾아주고 있다.
+//   filter<string | number extends string | number>(predicate: (value: string | number, index: number, array: string | number[]) => value is S, thisArg?: any): string | number[];
+const filtered2 = ['1',2,'3',4,'5'].filter((v) => typeof  v === 'string'); // ['1','3' ,'5'] string[]
+
+// 타입추론 제대로 바꿔보기
+//  filter 의 predicate 부분을 그대로 빼와서 type 부분을 할당 해주고 filter 에 집어넣는다.
+// 가능한 이유는   string | number 로 string 이 될  가능성이 남아있기 때문에 is string 으로 v 가 string 라고 선언 해줬다.
+const predicate = (v : string | number) : v is string => typeof v === 'string';
+const filtered3 = ['1',2,'3',4,'5'].filter(predicate); // ['1','3' ,'5'] string[]
+
+
+function adds<T extends string>(x: T): T { return x }
+adds('2');
+
+// <T extends {...}> // 특정 객체
+// <T extends any[]> // 모든 배열
+// <T extends (...args: any) => any> // 모든 함수
+// <T extends abstract new (...args: any) => any> // 생성자 타입
+// <T extends keyof any> // string | number | symbol
+>>>>>>> 75f39990fef5583d1caf1b6bc3ecd00697067482
