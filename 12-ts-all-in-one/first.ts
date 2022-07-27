@@ -269,7 +269,7 @@ add(1,2) // 3
 add('1' , '2') //12
 */
 
-<<<<<<< HEAD
+
 // 코드를 보고 타입 만들어보기
 // 코드 대로 작성 후 타입을 하나씩 추가
 interface Arr<T> {
@@ -516,14 +516,14 @@ type I = InstanceType<typeof CPI>
 
 const NI: CPI = new CPI('123', 456, true); // 인스턴스(new)
 */
-=======
+/*=======
 interface Array<T> {
   forEach(callbackfn : (value : T , index:number , array : T[]) => void , thisArg?: any) : void;
   map<U>(callbackfn: (value: T, index: number, array: T[]) => U, thisArg?: any): U[];
   filter<S extends T>(predicate: (value: T, index: number, array: T[]) => value is S, thisArg?: any): S[];
   filter(predicate: (value: T, index: number, array: T[]) => unknown, thisArg?: any): T[];
 
-}
+}*/
 // generic T 덕분에 첫 타입이 정해지면 다른 타입의 값을 자동으로 추론 해준다.
 const genericA : Array<number> = [1,2,3];
 genericA.forEach((value) => {console.log(value)});
@@ -555,4 +555,3 @@ adds('2');
 // <T extends (...args: any) => any> // 모든 함수
 // <T extends abstract new (...args: any) => any> // 생성자 타입
 // <T extends keyof any> // string | number | symbol
->>>>>>> 75f39990fef5583d1caf1b6bc3ecd00697067482
