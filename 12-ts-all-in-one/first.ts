@@ -1,4 +1,5 @@
 // 강의 교안 1
+
 const a: string = '5';
 const b: number = 5;
 const c: boolean = true;
@@ -7,12 +8,12 @@ const e: null = null;
 const f: any = '아무거나 다 됨.'
 
 // 타입스크립트가 추론을 정확하게 해줬다면, 굳이 쓰지 말아라.
-
+/*
 function add(x: number, y: number): number {
   return x + y
 }
 
-const result = add(1, 2);
+const result = add(1, 2);*/
 
 
 // type Add = (x: number, y: number) => void
@@ -109,18 +110,21 @@ numOrNumArray([1, 2, 3])
 
 /* class  */
 class classA { // class 는 그자체로 타입이 된다.
-  aaa () {}
+  aaa() {
+  }
 }
 
-class classB{
-  bbb() {}
+class classB {
+  bbb() {
+  }
 }
 
-function aOrB(param: classA | classB){
-  if(param instanceof classA) { // param 값이 classA이다.
+function aOrB(param: classA | classB) {
+  if (param instanceof classA) { // param 값이 classA이다.
     param.aaa();
   }
 }
+
 aOrB(new classA()); // class 자체가 아닌 instance 를 의미한다.
 aOrB(new classB());
 
@@ -129,6 +133,7 @@ type B = { type: 'b', bbb: string };
 type C = { type: 'c', ccc: string };
 type D = { type: 'd', ddd: string };
 type A = B | C | D;
+
 function typeCheck(a: A) {
   if (a.type === 'b') {
     a.bbb;
@@ -140,16 +145,24 @@ function typeCheck(a: A) {
 }
 
 
-interface Cat { meow: number }
-interface Dog { bow: number }
+interface Cat {
+  meow: number
+}
+
+interface Dog {
+  bow: number
+}
+
 function catOrDog(a: Cat | Dog): a is Dog {
 // 타입 판별을 만들어 적용 할 수 있다.
-  if ((a as Cat).meow) { return false }
+  if ((a as Cat).meow) {
+    return false
+  }
   return true;
 }
 
 // 타입을 구분해주는 커스텀 함수 만들기.
-const cat: Cat | Dog = { meow: 3 }
+const cat: Cat | Dog = {meow: 3}
 if (catOrDog(cat)) {
   console.log(cat.meow);
 }
@@ -169,8 +182,8 @@ export {}
 
 
 //index-signature [key: type] : type
-type AAA = {[key : string] : string}; // 모든 속성이 type 으로 만들때 사용
-const aaa:AAA ={a:'hi' , b:'hello'}
+type AAA = { [key: string]: string }; // 모든 속성이 type 으로 만들때 사용
+const aaa: AAA = {a: 'hi', b: 'hello'}
 
 
 /*
@@ -207,7 +220,6 @@ new C().b;
 //   o                o                o   - 클래스 내부
 //   o                x                x   - 클래스 외부
 //   o                o                x   - 상속 받은 곳
-
 
 
 /*
@@ -255,4 +267,251 @@ function add< T extends number | string >(x: T , y: T ) : T {return x + y};
 
 add(1,2) // 3
 add('1' , '2') //12
+*/
+
+// 코드를 보고 타입 만들어보기
+// 코드 대로 작성 후 타입을 하나씩 추가
+interface Arr<T> {
+
+  forEach(callback: (item: T) => void): void
+
+  map<S>(callback: (value: T, index: number) => S): S[]
+
+  filter<S extends T>(callback: (v: T) => v is S): S[]
+
+  // T는 <number | string> 또는 으로 타입이 잡혔기 때문에 고정된 타입을 위해선 새로운 제네릭 변수를 넣어준다. (S)
+  // 커스텀 타입가드를 통해 s를 t의 요소로 할당해준다.,
+}
+
+const ArrA: Arr<number> = [1, 2, 3];
+ArrA.map((v, i) => v + 1) // [2,3,4] type 은 number 가 나오도록하기
+ArrA.map((v, i) => v.toString()) // ['2','3','4'] type 은 string 이 나오도록하기
+
+
+const ArrB: Arr<string> = ["1", "2", "3"];
+ArrB.forEach((i) => {
+  console.log(i)
+  i.charAt(1)
+})
+ArrB.forEach((i) => {
+  console.log(i)
+  return '3';
+});
+
+const ArrC: Arr<number> = [1, 2, 3];
+ArrC.filter((v): v is number => v % 2 === 0); // [2] number[]
+
+const ArrD: Arr<number | string> = [1, '2', 3, '4', 5];
+// 바깥으로 빼서 사용 하는 방법
+const predicate2 = (v: string | number): v is string => typeof v === 'string';
+ArrD.filter(predicate2) // ['2','4'] string[]
+
+// 안쪽에서 사용 하는 방법
+ArrD.filter((v): v is string => typeof v === 'string') // ['2','4'] string[]
+
+
+function Aa(x: string | number): number {
+  return 0;
+}
+
+type Bb = (x: string) => number | string;
+
+// Aa가 Bb 로 대입이 가능하다.
+// return 값은 넓은 타입으로 대입 가능
+// 매게변수는 좁은 타입으로 대입 가능
+
+const Bb: Bb = Aa;
+
+
+// 같은 타입을 여러번 선언 하는것
+declare function add(x: number, y: number): number
+declare function add(x: number, y: number, z: number): number
+
+add(1, 2);
+add(2, 3, 4);
+
+class AA {
+  add(x: number, y: number): number
+  add(x: string, y: string): string
+  add(x: any, y: any) {
+    return x + y
+  }
+}
+
+const cc = new AA().add('1', '2');
+
+interface Axios {
+  get(): void;
+}
+
+class CustomError extends Error {
+  // 기본 javascript 의 error 에서는 없기 때문에 Custom으로 만들어 extends 시켜준다.
+  response?: {
+    data: any;
+  }
+}
+
+declare const axios: Axios;
+
+(async () => {
+  try {
+    await axios.get();
+  } catch (err: unknown) {
+    if (err instanceof CustomError) {
+      // as 는 unknown 일 경우 꼭 사용해야 된다.
+      // ts 는 1회성으로 사용이 되기 때문에,  변수를 만들어줘 타입을 저장해줘야 한다.
+      console.error(err.response?.data)
+      err.response?.data;
+    }
+
+  }
+})();
+
+interface Profile {
+  name: string,
+  age: number,
+  married: boolean
+}
+
+const bottlesun: Profile = { // married 값을 제거하고 싶을땐?
+  name: 'bottlesun',
+  age: 27,
+  married: false
+}
+
+// Partial - <Props> 안에 들어가는 값을 ? 옵셔널로 만들어주는 기능.
+/*
+const newBottlesun: Partial<Profile> = {
+  name: 'bottlesun',
+  age: 27,
+  }
+ */
+
+// Pick - <Props> 에서 특정 값만 가지고 오는 기능.
+/*
+const newBottlesun: Pick<Profile , 'name' | 'age'> = {
+  name: 'bottlesun',
+  age: 27,
+}
+*/
+
+// Omit - <Props> 에서 특정 값만 제외 하는 기능.
+/*const newBottlesun: Omit<Profile , 'married'> = {
+  name: 'bottlesun',
+  age: 27,
+}*/
+
+// Partial 만들어보기
+type P<T> = {
+  // key : value
+  [key in keyof T]?: T[key];
+}
+
+// Pick 만들어보기
+type Picks<T, S extends keyof T> = {
+  // key : value
+  [key in S]: T[key];
+}
+
+// Exclude - key 들에서 빼고 싶은걸 선택.
+type Exc = Exclude<keyof Profile, 'married'>
+
+type O<T, S> = Pick<T, Exclude<keyof T, S>>
+
+const CustomNewBottlesun: O<Profile, 'married'> = {
+  name: 'bottlesun',
+  age: 27,
+}
+
+// type Exclude<T,U> = T extends U ? never : T;
+// type Extract<T,U> = T extends U ? T : never;
+type Animal = 'Cat' | 'Dog' | 'Human';
+type Mammal = Exclude<Animal, 'Human'>;  // 'Cat' | 'Dog' | never
+type Human = Extract<Animal, 'Cat' | 'Dog'>; // 'Cat' | 'Dog' | never
+
+
+/*type R<T> = {
+  [key in keyof T] -? : T[key];
+  // 옵셔널을 전부 빼버린다.
+}*/
+// Mapping Modifiers - -?
+
+/*
+const newBottlesun: Required<Profile> = {
+  name: 'bottlesun',
+  age: 27,
+  married : false,
+}*/
+
+
+/*
+type Readonly<T> = {
+  readonly [P in keyof T]: T[P];
+  // 남의 키를 가지고 올때 readonly 를 붙혀준다.
+};
+
+const newBottlesun: Readonly<Profile> = {
+  name: 'bottlesun',
+  age: 27,
+  married: false,
+}*/
+
+
+/*
+type Record<T extends keyof any ,S> = { // extends keyof any string / number /symbol 만 올 수 있기에 제한 조건이필요
+ [key in T] : S;
+}
+// 객체에서 key , type 형식으로 반환 해준다
+const ReA : Record<string, number> = {a:3 , b: 5 , c : 7}
+*/
+
+/*
+type n = string | null | undefined | boolean | number
+type CN<T> = T extends null | undefined ? never : T
+
+type newN = NonNullable<n> // string | boolean | number
+*/
+
+
+/*
+function zip(x: number, y: string, z: boolean): {x: number, y: string, z: boolean} {
+  return {x, y, z};
+}
+// T extends (...args : any) => any 함수 제한두는 방법.
+// T 는 무조건 함수여야 한다 = A로 추론 해서 값이 있으면 A : 없으면 never
+// infer = 자동추론
+type CP<T extends (...args : any) => any> = T extends (...args : infer A) => any ? A : never
+type CR<T extends (...args : any) => any> = T extends (...args : any) => infer A ? A : never
+
+type params = Parameters< typeof zip>
+type Ret = ReturnType<typeof zip>
+// 배열처럼 되있는 타입에 접근이 가능하다.
+type Fisrst = Ret // string
+*/
+
+
+//T extends abstract new (...args: any) => any 생성자 모양
+
+// type ConstructorParameters<T extends abstract new (...args: any) => any> = T extends abstract new (...args: infer P) => any ? P : never;
+
+// type InstanceType<T extends abstract new (...args: any) => any> = T extends abstract new (...args: any) => infer R ? R : any;
+
+/*
+class CPI {
+  a: string;
+  b: number;
+  c: boolean;
+
+  constructor(a: string, b: number, c: boolean) {
+    this.a = a;
+    this.b = b;
+    this.c = c;
+  }
+}
+
+const newConstructorP = new CPI('123', 456, true);
+type CP = ConstructorParameters<typeof CPI> // typeof 클래스가 생성자
+type I = InstanceType<typeof CPI>
+
+const NI: CPI = new CPI('123', 456, true); // 인스턴스(new)
 */
