@@ -1,0 +1,155 @@
+@import "./common";
+@import "./variables";
+
+main {
+  width: 100%;
+  overflow: hidden;
+  background: $bgColor;
+
+
+  .logo {
+    width: 100%;
+    height: 60px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 3;
+    padding: 20px 0;
+    display: flex;
+    align-items: center;
+
+    .logo-box {
+      width: 200px;
+      height: 50px;
+      position: relative;
+
+      img {
+        position: absolute;
+        width: 130px;
+        height: auto;
+        top: 0;
+        left: 0;
+      }
+    }
+  }
+
+  .main_wrap {
+    width: 100%;
+    background: $bgColor;
+
+    ul {
+      width: 100%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(1.5);
+      margin-top: 100px;
+
+      li {
+        position: relative;
+
+      }
+
+      .oh {
+        position: absolute;
+        width: 280px;
+        top: 150px;
+        left: 50%;
+        transform: translateX(-50%);
+
+        img {
+          width: 100%;
+        }
+      }
+
+      //oh end
+
+      .friends {
+        margin: 0 0 30px -20px;
+
+        span {
+          display: inline-block;
+          height: auto;
+          transform: matrix(1, 0, 0, 1, 0, 0);
+          vertical-align: bottom;
+
+          img {
+            width: 100%;
+          }
+        }
+
+        .ryan {
+          width: 130px;
+        }
+
+        .chun {
+          width: 90px;
+        }
+      }
+
+      //friends end
+
+      & :nth-child(3) {
+        font-size: 45px;
+        font-weight: 800;
+        line-height: 50px;
+      }
+
+      // 모두의 서프라이즈
+
+      & :nth-child(4) {
+        strong {
+          color: $mainColor;
+          font-weight: 700;
+          padding: 20px;
+          display: block;
+        }
+
+        font-size: 18px;
+        font-weight: 600;
+        line-height: 35px;
+        color: #929292;
+
+        span {
+          color: #d6d6d6;
+        }
+      }
+
+      // 7.25 - 8.15
+
+      & .Surprise {
+        opacity: 0;
+        position: absolute;
+        top: 70%;
+        left: 50%;
+        transform: translate(-50% , -50%) ;
+        strong {
+          color: $mainColor;
+          font-weight: 700;
+          padding: 20px;
+          display: block;
+          font-size: 30px;
+        }
+
+        font-size: 18px;
+        font-weight: 600;
+        line-height: 35px;
+        color: #333;
+
+        span {
+          color: #b0ada6;
+        }
+      }
+
+      // Surprise
+
+    }
+  }
+
+
+  // test
+  .test {
+    width: 100%;
+    height: 300vh;
+  }
+}

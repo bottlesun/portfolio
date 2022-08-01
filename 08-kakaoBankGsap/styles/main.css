@@ -1,0 +1,164 @@
+@import url("https://webfontworld.github.io/SCoreDream/SCoreDream.css");
+body, * {
+  font-family: "SCoreDream";
+  font-weight: 400;
+  font-size: 14px;
+  color: #333;
+}
+
+section {
+  width: 100%;
+}
+
+.fixed {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.inner {
+  max-width: 100%;
+  padding: 0 25px;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+@media (min-width: 768px) {
+  .PC_display {
+    display: block;
+  }
+
+  .m_display {
+    display: none;
+  }
+}
+@media (max-width: 767px) {
+  .PC_display {
+    display: none;
+  }
+
+  .m_display {
+    display: block;
+  }
+}
+/*Color */
+main {
+  width: 100%;
+  overflow: hidden;
+  background: #f3f3f3;
+}
+main .logo {
+  width: 100%;
+  height: 60px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 3;
+  padding: 20px 0;
+  display: flex;
+  align-items: center;
+}
+main .logo .logo-box {
+  width: 200px;
+  height: 50px;
+  position: relative;
+}
+main .logo .logo-box img {
+  position: absolute;
+  width: 130px;
+  height: auto;
+  top: 0;
+  left: 0;
+}
+main .main_wrap {
+  width: 100%;
+  background: #f3f3f3;
+}
+main .main_wrap ul {
+  width: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(1.5);
+  margin-top: 100px;
+}
+main .main_wrap ul li {
+  position: relative;
+}
+main .main_wrap ul .oh {
+  position: absolute;
+  width: 280px;
+  top: 150px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+main .main_wrap ul .oh img {
+  width: 100%;
+}
+main .main_wrap ul .friends {
+  margin: 0 0 30px -20px;
+}
+main .main_wrap ul .friends span {
+  display: inline-block;
+  height: auto;
+  transform: matrix(1, 0, 0, 1, 0, 0);
+  vertical-align: bottom;
+}
+main .main_wrap ul .friends span img {
+  width: 100%;
+}
+main .main_wrap ul .friends .ryan {
+  width: 130px;
+}
+main .main_wrap ul .friends .chun {
+  width: 90px;
+}
+main .main_wrap ul :nth-child(3) {
+  font-size: 45px;
+  font-weight: 800;
+  line-height: 50px;
+}
+main .main_wrap ul :nth-child(4) {
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 35px;
+  color: #929292;
+}
+main .main_wrap ul :nth-child(4) strong {
+  color: #ffac0d;
+  font-weight: 700;
+  padding: 20px;
+  display: block;
+}
+main .main_wrap ul :nth-child(4) span {
+  color: #d6d6d6;
+}
+main .main_wrap ul .Surprise {
+  opacity: 0;
+  position: absolute;
+  top: 70%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 35px;
+  color: #333;
+}
+main .main_wrap ul .Surprise strong {
+  color: #ffac0d;
+  font-weight: 700;
+  padding: 20px;
+  display: block;
+  font-size: 30px;
+}
+main .main_wrap ul .Surprise span {
+  color: #b0ada6;
+}
+main .test {
+  width: 100%;
+  height: 300vh;
+}
+
+/*# sourceMappingURL=main.css.map */

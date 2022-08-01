@@ -1,0 +1,12 @@
+@mixin PC {
+  @media (min-width: 768px) {
+    @content
+  }
+}
+
+@mixin Mobile {
+  @media (max-width: 767px) {
+    @content
+  }
+}
+

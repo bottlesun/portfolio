@@ -1,0 +1,26 @@
+.inner {
+  max-width: 100%;
+  padding: 0 25px;
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .PC_display {
+    display: block;
+  }
+
+  .m_display {
+    display: none;
+  }
+}
+@media (max-width: 767px) {
+  .PC_display {
+    display: none;
+  }
+
+  .m_display {
+    display: block;
+  }
+}
+
+/*# sourceMappingURL=common.css.map */

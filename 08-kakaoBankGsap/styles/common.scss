@@ -1,0 +1,50 @@
+@import "./mixin";
+@import url('https://webfontworld.github.io/SCoreDream/SCoreDream.css');
+
+
+body, * {
+  font-family: 'SCoreDream';
+  font-weight: 400;
+  font-size: 14px;
+  color: #333;
+}
+
+section{
+  width: 100%;
+}
+
+.fixed {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.inner {
+  max-width: 100%;
+  padding: 0 25px;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+@include PC {
+  .PC_display {
+    display: block;
+  }
+
+  .m_display {
+    display: none;
+  }
+}
+
+@include Mobile {
+  .PC_display {
+    display: none;
+  }
+
+  .m_display {
+    display: block;
+  }
+}
+
