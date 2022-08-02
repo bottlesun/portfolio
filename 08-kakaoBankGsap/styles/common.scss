@@ -10,7 +10,9 @@ body, * {
 }
 
 section{
+  position: relative;
   width: 100%;
+  overflow: hidden;
 }
 
 .fixed {
@@ -20,6 +22,8 @@ section{
   top: 0;
   left: 0;
 }
+
+
 
 .inner {
   max-width: 100%;
