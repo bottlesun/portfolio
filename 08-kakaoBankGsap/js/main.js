@@ -1,6 +1,10 @@
-gsap.registerPlugin(ScrollTrigger);
-
 let tl = gsap.timeline();
+const button = document.querySelectorAll('.buttonComponent');
+const modalWrap = document.querySelector('.modal_wrap');
+const toggleBtn = document.querySelector('.toggleBtn');
+//gsap
+
+gsap.registerPlugin(ScrollTrigger);
 
 tl.from('.oh', {
   scale: 3, // 크기
@@ -17,13 +21,7 @@ tl.from('.oh', {
 
 
 /* ---------------------------------------------------------------------------- */
-let videosHeight = document.querySelector('.videos').clientHeight
-let dumpHeight = document.querySelector('.dump-section').clientHeight
-
-let mainHeight = document.querySelector('main ').clientHeight
-const Heights = (mainHeight + dumpHeight)
-console.log(mainHeight)
-console.log(Heights)
+//scrollTrigger
 
 gsap.timeline({
   scrollTrigger: {
@@ -35,22 +33,23 @@ gsap.timeline({
     pin: true,
   }
 }).from(".oh", {scale: 1,}, 0)
-  .to('li:nth-child(3), li:nth-child(4)', {y: -50, opacity: 0}, 0)
+  .to('.main_wrap .inner > ul > li:nth-child(3),' +
+    ' .main_wrap .inner > ul >li:nth-child(4)', {y: -50, opacity: 0}, 0)
   .to('.Surprise', {y: -50, opacity: 1}, ">")
   .to('.ryan', {y: -200, x: -150, scale: 2, opacity: 1}, 0)
   .to('.chun', {y: 320, x: 150, scale: 2, opacity: 1}, 0)
   .to('.main_wrap', {scale: 2, opacity: 0, display: 'none'}, 2)
   .to('.block', {opacity: 0}, 3)
-  .to('.mask', {scale: 5}, ">")
-  .to('.mask', {opacity: 0}, ">")
-  .to('.activeBg', {opacity: 1}, ">")
-  .to('.cute_chun', {y: -50, opacity: 1}, "<")
+  .to('.mask', {scale: 5}, "<")
+  .to('.mask', {opacity: 0}, "<")
+  .to('.activeBg', {opacity: 1}, "<")
+  .to('.cute_chun', {y: -50, opacity: 1, duration: 2}, "<")
 
 gsap.timeline({
   scrollTrigger: {
     trigger: ".videos",
-    start: 'bottom 0% - 200px',
-    endTrigger: '.information',
+    start: 'bottom 0% += 300px',
+    endTrigger: '.quizInfo',
     scrub: 2,
     onToggle: (e) => PositionEvent(e),
   }
@@ -60,10 +59,31 @@ const PositionEvent = (e) => {
   console.log(e.isActive)
   const logo = document.querySelector('.logo');
   const videos = document.querySelector('.videos');
-  const arr = [videos,logo];
+  const arr = [videos, logo];
 
-  arr.map((i,v) => {
+  arr.map((i, v) => {
     (!e.isActive) ? (i.style.cssText = 'top:0; position:fixed') : (i.style.cssText = `top:100%; position:absolute `)
   })
 }
 
+/* ---------------------------------------------------------------------------- */
+
+//toggleButton
+toggleBtn.addEventListener('click' , () => {
+  let icon = document.querySelector('.toggleBtn > span ')
+  let detail = document.querySelector('.detail ')
+  icon.classList.toggle('on') ;
+  detail.classList.toggle('on') ;
+
+})
+
+//modal
+button.forEach((v)=> {
+  v.addEventListener('click', () => {
+    modalWrap.style.display = 'flex'
+  })
+})
+
+modalWrap.addEventListener('click', (e) => {
+  modalWrap.style.display =  'none';
+})
