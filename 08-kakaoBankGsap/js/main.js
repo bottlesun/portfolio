@@ -2,6 +2,16 @@ let tl = gsap.timeline();
 const button = document.querySelectorAll('.buttonComponent');
 const modalWrap = document.querySelector('.modal_wrap');
 const toggleBtn = document.querySelector('.toggleBtn');
+const navList = document.querySelector('nav ul ');
+const navListLi = document.querySelectorAll('nav ul li a');
+
+
+//getBoundingClientRect() |  DomRect 구하기 (각종 좌표값이 들어있는 객체)
+//  getBoundingClientRect().top; | Viewport의 시작지점을 기준으로한 상대좌표 Y 값.
+let quiz = document.querySelector('.quizBtn a')
+let gift = document.querySelector('.giftBtn a')
+let limited = document.querySelector('.limitBtn a')
+
 //gsap
 
 gsap.registerPlugin(ScrollTrigger);
@@ -13,17 +23,18 @@ tl.from('.oh', {
   ease: 'expo.inout', // 애니메이션 부드러움정도?  https://greensock.com/docs/v3/Eases
   //stagger - 시차
 }, 0).from('.logo-box', { // logo
-  opacity: 0, y: -50, ease: 'expo.inout'
+  opacity: 0, y: -50, ease: 'expo.inout', duration: 1.1
 }, 0)
   .from('.friends', {
     opacity: 0, y: 50, ease: 'expo.inout'
-  }, 1)
+  }, ">")
 
 
 /* ---------------------------------------------------------------------------- */
 //scrollTrigger
 
 gsap.timeline({
+  immediateRender: false,
   scrollTrigger: {
     trigger: ".main_wrap",
     endTrigger: '.main_wrap',
@@ -41,6 +52,7 @@ gsap.timeline({
   .to('.main_wrap', {scale: 2, opacity: 0, display: 'none'}, 2)
   .to('.block', {opacity: 0}, 3)
   .to('.mask', {scale: 5}, "<")
+  .to('.down_arrow', {opacity: 0}, "<")
   .to('.mask', {opacity: 0}, "<")
   .to('.activeBg', {opacity: 1}, "<")
   .to('.cute_chun', {y: -50, opacity: 1, duration: 2}, "<")
@@ -55,35 +67,87 @@ gsap.timeline({
   }
 })
 
+gsap.timeline({
+  scrollTrigger: {
+    trigger: ".quizInfo",
+    start: 'top 5%  ',
+    endTrigger: '.footer',
+    scrub: 2,
+    onToggle: (self) => navAction(self),
+  }
+})
+
+
 const PositionEvent = (e) => {
-  console.log(e.isActive)
   const logo = document.querySelector('.logo');
   const videos = document.querySelector('.videos');
   const arr = [videos, logo];
 
   arr.map((i, v) => {
     (!e.isActive) ? (i.style.cssText = 'top:0; position:fixed') : (i.style.cssText = `top:100%; position:absolute `)
-  })
+  });
 }
 
-/* ---------------------------------------------------------------------------- */
+const navAction = (self) => {
+  console.log(self)
+  const nav = document.getElementsByTagName('nav')[0];
+  (!self.isActive) ? (nav.style.cssText = 'display: none') : (nav.style.cssText = 'display: block');
+}
 
+
+/* ---------------------------------------------------------------------------- */
+// click Event
 //toggleButton
-toggleBtn.addEventListener('click' , () => {
+toggleBtn.addEventListener('click', () => {
   let icon = document.querySelector('.toggleBtn > span ')
   let detail = document.querySelector('.detail ')
-  icon.classList.toggle('on') ;
-  detail.classList.toggle('on') ;
+  icon.classList.toggle('on');
+  detail.classList.toggle('on');
 
 })
 
 //modal
-button.forEach((v)=> {
+button.forEach((v) => {
   v.addEventListener('click', () => {
     modalWrap.style.display = 'flex'
   })
 })
-
 modalWrap.addEventListener('click', (e) => {
-  modalWrap.style.display =  'none';
+  modalWrap.style.display = 'none';
 })
+
+/* 클릭 이벤트로 구현 */
+
+/*
+navList.addEventListener('click', (e) => {
+  let thisClick = e.target;
+  navListLi.forEach((v) => {
+    thisClick === v ? thisClick.classList.add('on') : v.classList.remove('on');
+  })
+})
+*/
+
+/* ---------------------------------------------------------------------------- */
+
+/* 스크롤 시 */
+// 2324 , 3062 , 4011
+
+window.addEventListener('scroll', () => {
+  let scrollTop = window.scrollY;
+  let per = Math.ceil(scrollTop);
+
+  if(2324 <= per && per < 3062) {
+    quiz.classList.add('on')
+    gift.classList.remove('on')
+    limited.classList.remove('on')
+  } else if(3062 <= per && per < 4011 ){
+    quiz.classList.remove('on')
+    gift.classList.add('on')
+    limited.classList.remove('on')
+  }  else if(per >= 4011){
+    quiz.classList.remove('on')
+    gift.classList.remove('on')
+    limited.classList.add('on')
+  }
+});
+

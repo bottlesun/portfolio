@@ -12,6 +12,12 @@
         integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A=="
         crossorigin="anonymous" referrerpolicy="no-referrer"/>
 
+  <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css"
+  />
+
+
   <link rel="stylesheet" href="styles/main.css">
 </head>
 <body>
@@ -24,6 +30,7 @@
       </div>
     </div>
   </section> <!--  TOP (Header section)-->
+  <div class="down_arrow"><i class="fa-solid fa-angle-down"></i></div>
   <section class="main_wrap fixed section">
     <div class="inner">
       <ul>
@@ -57,8 +64,6 @@
       </ul>
     </div>
   </section> <!--  pull page main (main section)-->
-
-
   <section class="videos ">
     <div class="wraps">
       <div class="bg"></div>
@@ -73,11 +78,11 @@
     </div>
   </section>
 
-  <section class="quizInfo information section">
+  <section id="quiz" class="quizInfo information section">
     <div class="inner">
       <div class="quiz">
         <h3>특별금리 최대 8%</h3>
-        <p class="week26">26주적금 5% 금리 쿠폰 받고,<br/>
+        <p class="body_text week26">26주적금 5% 금리 쿠폰 받고,<br/>
           <span>최대 8% 혜택</span> 누리세요
         </p>
         <p class="sm_text">
@@ -96,11 +101,11 @@
   </section>
 
 
-  <section class="giftInfo information section">
+  <section id="gift" class="giftInfo information section">
     <div class="inner">
       <div class="gift">
         <h3>30만개 깜짝 선물</h3>
-        <p class="gift_text">
+        <p class="body_text gift_text">
           카카오뱅크 홈화면에서<br/>
           라이언이나 춘식이 내려오면 <span>황금주화부터</span><br/>
           <span>맥북프로까지!</span> 다양한 선물을 드려요
@@ -146,6 +151,43 @@
     </div>
   </section>
 
+  <section id="limited" class="limitedComponent information section">
+    <div class="inner">
+      <div class="limited">
+        <div class="title_box">Limited Edition</div>
+        <h3>5주년 황금주화 10돈</h3>
+        <p class="body_text">
+          아직 카뱅을 안쓰는 부모님, 친구,<br/>
+          지인을 초대하고 둘이 함께 <span>황금주화를</span> 받으세요<br/>
+        </p>
+
+        <div class="swiper mySwiper">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide ">
+              <div class="swiper-items">
+                <img src="image/coin.jpg" alt="코인">
+                <p>라이언은 모르겠고 황금주화 가지고싶다</p>
+              </div>
+
+            </div>
+            <div class="swiper-slide">
+              <div class="swiper-items">
+                <img src="image/coin.jpg" alt="코인">
+                <p>춘식이의 황금주화 가지고싶다</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="buttonComponent">
+          <a href="javascript:void(0)">
+            응모하기
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
   <div class="modal_wrap">
     <div class="modal">
       <p>춘식이가 참 귀엽죠.</p>
@@ -155,12 +197,34 @@
     </div>
   </div>
 
+  <nav>
+    <ul>
+      <li class="quizBtn"><a href="#quiz">특별금리</a></li>
+      <li class="giftBtn"><a href="#gift">깜짝선물</a></li>
+      <li class="limitBtn"><a href="#limited">황금주화</a></li>
+    </ul>
+  </nav>
+
 </main>
+
+<footer>
+  <h3>CloneCoding. KakaoBank EventPage</h3><br/>
+  <ul class="link">
+    <li><a href="  https://event.kakaobank.com/p/5th_bd?type=list
+" target="_blank"> <i class="fa-solid fa-clone"></i> </a></li>
+    <li><a href="  https://github.com/bottlesun/study/tree/master/08-kakaoBankGsap
+" target="_blank"> <i class="fa-brands fa-github"></i> </a></li>
+    <li><a href="  http://bottlesun.pe.kr/
+" target="_blank"> <i class="fa-brands fa-blogger-b"></i> </a></li>
+  </ul>
+
+</footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.4/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.2/TweenMax.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.4/ScrollTrigger.min.js"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
 <script src="js/main.js"></script>
+<script src="js/swiperScript.js"></script>
 </body>
 </html>

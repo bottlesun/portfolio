@@ -7,6 +7,7 @@ body, * {
   font-size: 14px;
   color: #333;
   letter-spacing: -1px;
+  scroll-behavior: smooth;
 }
 
 body {
@@ -94,6 +95,15 @@ section {
   border-radius: 10px;
   background: #ffac0d;
   font-weight: 500;
+}
+
+.body_text {
+  font-size: 18px;
+  line-height: 25px;
+  margin: 20px 0 15px;
+}
+.body_text span {
+  font-weight: bold;
 }
 
 @media (min-width: 768px) {
@@ -192,8 +202,10 @@ main .main_wrap ul :nth-child(3) {
   font-size: 45px;
   font-weight: 800;
   line-height: 50px;
+  opacity: 1;
 }
 main .main_wrap ul :nth-child(4) {
+  opacity: 1;
   font-size: 18px;
   font-weight: 600;
   line-height: 35px;
@@ -299,9 +311,6 @@ main .quizInfo .quiz h3 {
   font-weight: bold;
 }
 main .quizInfo .quiz .week26 {
-  font-size: 18px;
-  line-height: 25px;
-  margin: 20px 0 15px;
   color: #333333;
 }
 main .quizInfo .quiz .week26 span {
@@ -409,6 +418,150 @@ main .giftInfo .gift ul li:nth-child(3) .detail.on {
 main .giftInfo .gift ul li:nth-child(3) .detail img {
   width: 100%;
   height: auto;
+}
+main .limitedComponent {
+  width: 100%;
+  z-index: 3;
+  background-color: #f3f3f3;
+}
+main .limitedComponent .limited .title_box {
+  width: 100px;
+  padding: 7px 10px;
+  border: 2px solid #333333;
+  font-weight: bold;
+  margin: 0 auto 50px;
+}
+main .limitedComponent .limited h3 {
+  font-size: 32px;
+  font-weight: bold;
+}
+main .limitedComponent .limited .swiper {
+  width: 100%;
+  max-width: 600px;
+  height: 100%;
+  margin: 20px auto 60px;
+  overflow: unset;
+}
+main .limitedComponent .limited .swiper-slide {
+  text-align: center;
+  width: 280px !important;
+  height: 310px;
+  font-size: 18px;
+  background: #fff;
+  border-radius: 10px;
+  margin-top: 30px;
+  /* Center slide text vertically */
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+}
+main .limitedComponent .limited .swiper-slide .swiper-items {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+main .limitedComponent .limited .swiper-slide .swiper-items img {
+  display: block;
+  width: 80%;
+  height: 80%;
+  object-fit: cover;
+  margin-bottom: 30px;
+}
+main .limitedComponent .limited .swiper-slide .swiper-items p {
+  font-size: 13px;
+  color: #ffac0d;
+}
+main nav {
+  width: 100%;
+  height: 50px;
+  position: fixed;
+  z-index: 4;
+  top: 0;
+  left: 0;
+  display: none;
+}
+main nav ul {
+  max-width: 550px;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin: 0 auto;
+}
+main nav ul li {
+  width: 100%;
+  height: 100%;
+  line-height: 50px;
+  background-color: #f3f3f3;
+}
+main nav ul li a {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+main nav ul li a.on {
+  background: #ffc700;
+  font-weight: 600;
+}
+
+footer {
+  width: 100%;
+  padding: 70px 0 50px;
+  text-align: center;
+  background-color: #fff;
+  position: relative;
+  z-index: 3;
+}
+footer h3 {
+  font-weight: bold;
+}
+footer .link {
+  max-width: 200px;
+  margin: 20px auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+footer .link li {
+  font-size: 20px;
+}
+footer .link li a {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+footer .link li a i {
+  width: 100%;
+}
+
+.down_arrow {
+  position: fixed;
+  z-index: 3;
+  font-size: 30px;
+  top: 95%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: upDown infinite alternate 0.5s;
+}
+
+@keyframes upDown {
+  from {
+    top: 96%;
+  }
+  to {
+    top: 95%;
+  }
 }
 
 /*# sourceMappingURL=main.css.map */

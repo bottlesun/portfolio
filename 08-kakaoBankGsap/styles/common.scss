@@ -9,6 +9,7 @@ body, * {
   font-size: 14px;
   color: #333;
   letter-spacing: -1px;
+  scroll-behavior:smooth
 }
 
 body {
@@ -100,7 +101,21 @@ section {
       font-weight: 500;
     }
   }
+
 }
+
+
+.body_text {
+  font-size: 18px;
+  line-height: 25px;
+  margin: 20px 0 15px;
+
+
+  span {
+    font-weight: bold;
+  }
+}
+
 
 @include PC {
   .PC_display {
