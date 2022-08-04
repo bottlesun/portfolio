@@ -306,6 +306,12 @@ main .quizInfo {
   padding: 130px 0 50px;
   z-index: 3;
 }
+main .quizInfo .inner {
+  opacity: 0;
+}
+main .quizInfo .quiz {
+  padding-bottom: 20px;
+}
 main .quizInfo .quiz h3 {
   font-size: 32px;
   font-weight: bold;
@@ -333,6 +339,12 @@ main .quizInfo .quiz p {
 main .giftInfo {
   width: 100%;
   z-index: 3;
+}
+main .giftInfo .inner {
+  opacity: 0;
+}
+main .giftInfo .gift {
+  padding-bottom: 20px;
 }
 main .giftInfo .gift h3 {
   font-size: 32px;
@@ -423,6 +435,12 @@ main .limitedComponent {
   width: 100%;
   z-index: 3;
   background-color: #f3f3f3;
+}
+main .limitedComponent .inner {
+  opacity: 0;
+}
+main .limitedComponent .limited {
+  padding-bottom: 20px;
 }
 main .limitedComponent .limited .title_box {
   width: 100px;

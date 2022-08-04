@@ -77,6 +77,16 @@ gsap.timeline({
   }
 })
 
+gsap.timeline({
+  scrollTrigger: {
+    trigger: ".quizInfo",
+    start: 'top 50% ',
+  }
+})
+  .to('#quiz .inner',{y:50 ,opacity:1 },">")
+  .to('#gift .inner',{y:50 ,opacity:1 },">")
+  .to('#limited .inner',{y:50 ,opacity:1 },">")
+
 
 const PositionEvent = (e) => {
   const logo = document.querySelector('.logo');
@@ -89,7 +99,6 @@ const PositionEvent = (e) => {
 }
 
 const navAction = (self) => {
-  console.log(self)
   const nav = document.getElementsByTagName('nav')[0];
   (!self.isActive) ? (nav.style.cssText = 'display: none') : (nav.style.cssText = 'display: block');
 }
