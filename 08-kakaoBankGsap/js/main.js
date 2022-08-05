@@ -77,6 +77,40 @@ gsap.timeline({
   }
 })
 
+
+gsap.timeline({
+  scrollTrigger: {
+    trigger: ".quizInfo",
+    start: 'top 5%  ',
+    endTrigger: '.footer',
+    scrub: 2,
+    onToggle: (self) => navAction(self),
+  }
+})
+
+
+gsap.timeline({
+  scrollTrigger: {
+    trigger: ".quizInfo",
+    start: 'top 5%  ',
+    endTrigger: '.footer',
+    scrub: 2,
+    onToggle: (self) => navAction(self),
+  }
+})
+
+
+gsap.timeline({
+  scrollTrigger: {
+    trigger: ".quizInfo",
+    start: 'top 5%  ',
+    endTrigger: '.footer',
+    scrub: 2,
+    onToggle: (self) => navAction(self),
+  }
+})
+
+
 gsap.timeline({
   scrollTrigger: {
     trigger: ".quizInfo",
@@ -112,7 +146,6 @@ toggleBtn.addEventListener('click', () => {
   let detail = document.querySelector('.detail ')
   icon.classList.toggle('on');
   detail.classList.toggle('on');
-
 })
 
 //modal
@@ -139,21 +172,25 @@ navList.addEventListener('click', (e) => {
 /* ---------------------------------------------------------------------------- */
 
 /* 스크롤 시 */
-// 2324 , 3062 , 4011
+
+console.log(document.getElementsByTagName('main')[0].offsetHeight)
+console.log(document.body.offsetHeight + window.innerHeight)
 
 window.addEventListener('scroll', () => {
   let scrollTop = window.scrollY;
-  let per = Math.ceil(scrollTop);
+  // console.log(document.getElementsByTagName('main')[0].scrollHeight )
 
-  if(2324 <= per && per < 3062) {
+  let per = Math.ceil(scrollTop / (document.body.scrollHeight - window.outerHeight) * 100);
+
+  if(64 <= per && per < 65) {
     quiz.classList.add('on')
     gift.classList.remove('on')
     limited.classList.remove('on')
-  } else if(3062 <= per && per < 4011 ){
+  } else if(65 <= per && per < 83 ){
     quiz.classList.remove('on')
     gift.classList.add('on')
     limited.classList.remove('on')
-  }  else if(per >= 4011){
+  }  else if(per >= 90){
     quiz.classList.remove('on')
     gift.classList.remove('on')
     limited.classList.add('on')
