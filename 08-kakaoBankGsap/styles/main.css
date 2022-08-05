@@ -423,6 +423,9 @@ main .giftInfo .gift ul li:nth-child(3) .detail {
   overflow: hidden;
   transition: 0.3s;
 }
+main .giftInfo .gift ul li:nth-child(3) .detail .inner {
+  transform: translate(0, 0) !important;
+}
 main .giftInfo .gift ul li:nth-child(3) .detail.on {
   height: auto;
   padding: 25px 0 10px;

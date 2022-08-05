@@ -367,6 +367,10 @@ main {
               overflow: hidden;
               transition: 0.3s;
 
+              .inner{
+                transform: translate(0,0) !important;
+              }
+
               &.on {
                 height: auto;
                 padding: 25px 0 10px;
