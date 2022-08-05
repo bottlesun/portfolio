@@ -51,7 +51,7 @@ gsap.timeline({
   .to('.chun', {y: 320, x: 150, scale: 2, opacity: 1}, 0)
   .to('.main_wrap', {scale: 2, opacity: 0, display: 'none'}, 2)
   .to('.block', {opacity: 0}, 3)
-  .to('.mask', {scale: 5}, "<")
+  .to('.mask', {scale: 5}, 4)
   .to('.down_arrow', {opacity: 0}, "<")
   .to('.mask', {opacity: 0}, "<")
   .to('.activeBg', {opacity: 1}, "<")
@@ -64,38 +64,6 @@ gsap.timeline({
     endTrigger: '.quizInfo',
     scrub: 2,
     onToggle: (e) => PositionEvent(e),
-  }
-})
-
-gsap.timeline({
-  scrollTrigger: {
-    trigger: ".quizInfo",
-    start: 'top 5%  ',
-    endTrigger: '.footer',
-    scrub: 2,
-    onToggle: (self) => navAction(self),
-  }
-})
-
-
-gsap.timeline({
-  scrollTrigger: {
-    trigger: ".quizInfo",
-    start: 'top 5%  ',
-    endTrigger: '.footer',
-    scrub: 2,
-    onToggle: (self) => navAction(self),
-  }
-})
-
-
-gsap.timeline({
-  scrollTrigger: {
-    trigger: ".quizInfo",
-    start: 'top 5%  ',
-    endTrigger: '.footer',
-    scrub: 2,
-    onToggle: (self) => navAction(self),
   }
 })
 
