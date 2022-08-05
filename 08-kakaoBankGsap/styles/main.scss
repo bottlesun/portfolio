@@ -230,11 +230,14 @@ main {
     width: 100%;
     padding: 130px 0 50px;
     z-index: 3;
-    .inner{
+
+    .inner {
       opacity: 0;
     }
+
     .quiz {
       padding-bottom: 20px;
+
       h3 {
         font-size: 32px;
         font-weight: bold;
@@ -271,11 +274,14 @@ main {
   .giftInfo {
     width: 100%;
     z-index: 3;
-    .inner{
+
+    .inner {
       opacity: 0;
     }
+
     .gift {
       padding-bottom: 20px;
+
       h3 {
         font-size: 32px;
         font-weight: bold;
@@ -367,8 +373,8 @@ main {
               overflow: hidden;
               transition: 0.3s;
 
-              .inner{
-                transform: translate(0,0) !important;
+              .inner {
+                transform: translate(0, 0) !important;
               }
 
               &.on {
@@ -392,11 +398,14 @@ main {
     width: 100%;
     z-index: 3;
     background-color: $bgColor;
-    .inner{
+
+    .inner {
       opacity: 0;
     }
+
     .limited {
       padding-bottom: 20px;
+
       .title_box {
         width: 100px;
         padding: 7px 10px;

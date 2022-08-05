@@ -1,9 +1,10 @@
+// 스크롤 트리거
+
+
 let tl = gsap.timeline();
 const button = document.querySelectorAll('.buttonComponent');
 const modalWrap = document.querySelector('.modal_wrap');
 const toggleBtn = document.querySelector('.toggleBtn');
-const navList = document.querySelector('nav ul ');
-const navListLi = document.querySelectorAll('nav ul li a');
 
 
 //getBoundingClientRect() |  DomRect 구하기 (각종 좌표값이 들어있는 객체)
@@ -16,19 +17,26 @@ let limited = document.querySelector('.limitBtn a')
 
 gsap.registerPlugin(ScrollTrigger);
 
-tl.from('.oh', {
+tl.fromTo('.oh', {
   scale: 3, // 크기
   opacity: 0, // 투명도
+}, {
+  scale: 1, // 크기
+  opacity: 1, // 투명도
   duration: 1, // 지속시간
   ease: 'expo.inout', // 애니메이션 부드러움정도?  https://greensock.com/docs/v3/Eases
   //stagger - 시차
-}, 0).from('.logo-box', { // logo
-  opacity: 0, y: -50, ease: 'expo.inout', duration: 1.1
 }, 0)
+  .from('.logo-box', { // logo
+    opacity: 0, y: -50, ease: 'expo.inout', duration: 1.1
+  }, "-=1")
   .from('.friends', {
     opacity: 0, y: 50, ease: 'expo.inout'
-  }, ">")
-
+  }, "-=1")
+  .from('.main_wrap .inner > ul > li:nth-child(3),' +
+    ' .main_wrap .inner > ul >li:nth-child(4)', {
+    opacity: 0, y: 50, ease: 'expo.inout', duration: 1.1
+  }, "-=1")
 
 /* ---------------------------------------------------------------------------- */
 //scrollTrigger
@@ -41,21 +49,26 @@ gsap.timeline({
     start: 'top 0%',
     end: 'bottom 0%',
     scrub: 2,
-    pin: true,
+    // pin: true,
+
   }
-}).from(".oh", {scale: 1,}, 0)
+}).set(".oh", {scale: 1})
+  .set('.main_wrap .inner > ul > li:nth-child(3),' +
+    ' .main_wrap .inner > ul >li:nth-child(4)', {y: 0, opacity: 1})
+  .to(".oh", {scale: 3,}, "<")
   .to('.main_wrap .inner > ul > li:nth-child(3),' +
-    ' .main_wrap .inner > ul >li:nth-child(4)', {y: -50, opacity: 0}, 0)
-  .to('.Surprise', {y: -50, opacity: 1}, ">")
-  .to('.ryan', {y: -200, x: -150, scale: 2, opacity: 1}, 0)
-  .to('.chun', {y: 320, x: 150, scale: 2, opacity: 1}, 0)
-  .to('.main_wrap', {scale: 2, opacity: 0, display: 'none'}, 2)
-  .to('.block', {opacity: 0}, 3)
-  .to('.mask', {scale: 5}, 4)
+    ' .main_wrap .inner > ul >li:nth-child(4)', {y: -50, opacity: 0}, "<")
+  .to('.Surprise', {y: -50, opacity: 1}, "<")
+  .to('.ryan', {y: -200, x: -150, scale: 2, opacity: 1}, "<")
+  .to('.chun', {y: 320, x: 150, scale: 2, opacity: 1}, "<")
+  .to('.main_wrap', {scale: 2, opacity: 0, display: 'none'}, "<=1")
+  .to('.block', {delay:0.5 ,opacity: 0}, "<")
+  .to('.mask', {scale: 5}, "<=1")
   .to('.down_arrow', {opacity: 0}, "<")
   .to('.mask', {opacity: 0}, "<")
   .to('.activeBg', {opacity: 1}, "<")
   .to('.cute_chun', {y: -50, opacity: 1, duration: 2}, "<")
+
 
 gsap.timeline({
   scrollTrigger: {
@@ -85,9 +98,9 @@ gsap.timeline({
     start: 'top 50% ',
   }
 })
-  .to('#quiz .inner',{y:50 ,opacity:1 },">")
-  .to('#gift .inner',{y:50 ,opacity:1 },">")
-  .to('#limited .inner',{y:50 ,opacity:1 },">")
+  .to('#quiz .inner', {y: 50, opacity: 1}, ">")
+  .to('#gift .inner', {y: 50, opacity: 1}, ">")
+  .to('#limited .inner', {y: 50, opacity: 1}, ">")
 
 
 const PositionEvent = (e) => {
@@ -150,15 +163,15 @@ window.addEventListener('scroll', () => {
 
   let per = Math.ceil(scrollTop / (document.body.scrollHeight - window.outerHeight) * 100);
 
-  if(64 <= per && per < 65) {
+  if (64 <= per && per < 65) {
     quiz.classList.add('on')
     gift.classList.remove('on')
     limited.classList.remove('on')
-  } else if(65 <= per && per < 83 ){
+  } else if (65 <= per && per < 83) {
     quiz.classList.remove('on')
     gift.classList.add('on')
     limited.classList.remove('on')
-  }  else if(per >= 90){
+  } else if (per >= 90) {
     quiz.classList.remove('on')
     gift.classList.remove('on')
     limited.classList.add('on')
