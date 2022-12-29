@@ -1,6 +1,12 @@
 node_modules/
 dist/
 
+.idea/
+
+*/.env
+
+/09-redditClone-nextjs/data
+
 secrets.yaml
 
 #특정파일 제외 (※모든 경로에 적용!) - [파일명].[확장자]
