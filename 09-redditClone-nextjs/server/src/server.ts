@@ -12,12 +12,12 @@ app.get('/', (_, res) => {
   res.send('running');
 });
 
-let port = 4000;
+let port = 5000;
 
 app.listen(port, async () => {
   console.log(`Server is running at http://localhost:${port}`);
 
   AppDataSource.initialize().then(async () => {
     console.log("database initialized");
-  }).catch(error => console.log(error))
+  }).catch(error => console.log('[Error!! => ]',error))
 });

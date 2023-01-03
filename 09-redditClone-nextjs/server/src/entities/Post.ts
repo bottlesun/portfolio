@@ -4,6 +4,7 @@ import {BeforeInsert, Column, Index, JoinColumn, ManyToOne, OneToMany} from "typ
 import {User, Sub, Vote, Comment} from "../entities";
 import {Exclude, Expose} from "class-transformer"
 
+
 export class Post extends BaseEntity {
   @Index()
   @Column()

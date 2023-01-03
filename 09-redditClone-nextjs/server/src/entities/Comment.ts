@@ -1,7 +1,8 @@
 import {Exclude, Expose} from "class-transformer";
 import {BeforeInsert, Column, Entity, Index, JoinColumn, ManyToOne, OneToMany} from "typeorm";
 import BaseEntity from "./Entity"
-import {Post, User, Vote} from "../entities";
+import {Vote,User, Post} from "../entities";
+
 import {makeId} from "../utility/helpers";
 
 @Entity('comment')
