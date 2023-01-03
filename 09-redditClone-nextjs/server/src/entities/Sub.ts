@@ -2,13 +2,13 @@ import {Expose} from "class-transformer";
 import {Column, Entity, Index, ManyToOne, OneToMany} from "typeorm";
 import {JoinColumn} from "typeorm/browser";
 import BaseEntity from "./Entity";
-import {User} from "./User";
+import {User, Post} from "../entities";
 
 @Entity("subs")
 export class Sub extends BaseEntity {
   @Index()
   @Column()
-  name: string;
+  name: string; // post JoinColumn ref 값
 
   @Column({type: "text", nullable: true})
   description: string;
