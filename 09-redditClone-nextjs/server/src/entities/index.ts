@@ -1,5 +1,0 @@
-export * from './Sub'
-export * from './User'
-export * from './Post'
-export * from './Vote'
-export * from './Comment'
