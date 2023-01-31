@@ -1,5 +1,6 @@
 import express from 'express';
 import morgan from 'morgan';
+import {AppDataSource} from "./data-source";
 
 // 최상위 함수
 const app = express();
@@ -18,4 +19,9 @@ let port = 4000;
 //app.listen의 포트로 접속하면 해당 블록의 비동기로 코드 실행
 app.listen(port, async () => {
   console.log(`Server is running at http://localhost:${port}`);
+
+  AppDataSource.initialize().then(() => {
+    console.log("database initialized")
+  }).catch(error => console.log(error))
+
 });
