@@ -1,14 +1,32 @@
-import {useState} from "react";
+import axios from "axios";
+import Error from "next/error";
+import {useRouter} from "next/router";
+import {FormEvent, useCallback, useState} from "react";
 import useInput from "../../../hooks/useInput";
 import RegisterView from "./register.view";
 
 const Register = () => {
+  const router = useRouter();
   const {inputs, onChange} = useInput({email: '', username: '', password: ''})
   const {email, username, password} = inputs
-  const [error, setError] = useState<any>({});
-  const handleSubmit = () => {
-    console.log('서브밋')
-  }
+  const [errors, setErrors] = useState<any>({});
+
+  const handleSubmit = useCallback(async (e: FormEvent) => {
+    e.preventDefault();
+
+    try {
+      const res = await axios.post('/auth/register', {
+        email,
+        password,
+        username
+      })
+      console.log('res', res)
+      return router.push('/login');
+    } catch (error : Error | any) {
+      console.log('error = ',error);
+      setErrors(error?.response?.data || {});
+    }
+  }, [email, username, password])
 
   const props = {
     handleSubmit: handleSubmit,
@@ -16,34 +34,34 @@ const Register = () => {
       email: {
         name: "email",
         type: "email",
-        placeholder: 'email',
+        placeholder: 'Email',
         value: email,
         onChange: onChange,
-        error: ""
+        error: errors.email
       },
       username: {
         name: "username",
         type: "text",
-        placeholder: 'username',
+        placeholder: 'Username',
         value: username,
         onChange: onChange,
-        error: ""
+        error: errors.username
       },
       password: {
         name: "password",
         type: "password",
-        placeholder: 'password',
+        placeholder: 'Password',
         value: password,
         onChange: onChange,
-        error: ""
+        error: errors.password
       },
     },
     buttonsValue: {
       register: {
         children: '회원가입',
-        type : 'button',
-        onClick : () => console.log('click'),
-        disabled : false
+        type: 'button',
+        onClick: handleSubmit,
+        disabled: false
       }
     }
   }

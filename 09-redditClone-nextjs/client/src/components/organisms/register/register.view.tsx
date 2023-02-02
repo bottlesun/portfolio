@@ -8,8 +8,8 @@ const RegisterView = ({...props}) => {
     <article className={'bg-white'}>
       <section className={'flex flex-col items-center justify-center h-screen p-6'}>
         <fieldset className={'w-10/12 mx-auto md:w-96'}>
-          <h1 className={' text-[15px] font-bold font-medium text-gray-600'}>회원가입</h1>
-          <p className={'text-[12px] text-gray-500 mt-[3px]'}>회원님의 회원가입을 환영합니다!</p>
+          <h1 className={' text-[18px] font-black font-medium text-gray-600'}>회원가입</h1>
+          <p className={'text-[12px] text-gray-500 mt-[3px] font-bold'}>회원님의 회원가입을 환영합니다!</p>
           <hr className={'mt-5 mb-5 w-full h-[1px] bg-gray-400 border-0'}/>
           <form onSubmit={props.handleSubmit}>
             <InputGroupView {...props.inputValue.email} />
@@ -22,4 +22,4 @@ const RegisterView = ({...props}) => {
     </article>
   )
 }
-export default RegisterView
+export default React.memo(RegisterView)

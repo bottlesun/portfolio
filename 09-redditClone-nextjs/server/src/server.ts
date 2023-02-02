@@ -1,10 +1,14 @@
 import express from 'express';
 import morgan from 'morgan';
 import {AppDataSource} from "./data-source";
+import authRoutes from "./routes/auth"
+import cors from "cors"
 
 // 최상위 함수
 const app = express();
+const origin = "http://localhost:3000";
 
+app.use(cors({origin}));
 app.use(express.json());
 //morgan 옵션 ( dev, short, common, combined ) 중 하나를 선택
 app.use(morgan('dev'));
@@ -13,6 +17,8 @@ app.use(morgan('dev'));
 app.get('/', (_, res) => {
   res.send('running');
 });
+// 해당 라우터로가서 있는 하위 값에 요청을 해준다
+app.use("/api/auth", authRoutes);
 
 // app.listen의 첫번째 인자는 포트번호, 두번째 인자는 콜백함수
 let port = 4000;

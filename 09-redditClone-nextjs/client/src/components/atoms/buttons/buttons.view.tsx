@@ -1,3 +1,5 @@
+import React from 'react'
+
 export type buttonTypes = {
   children?: string,
   type?: 'submit' | 'reset' | 'button' | undefined;
@@ -5,6 +7,7 @@ export type buttonTypes = {
   disabled?: boolean
 }
 const ButtonsView = ({children, type, onClick, disabled}: buttonTypes) => {
+
   return <button
     onClick={onClick}
     type={type}
@@ -15,4 +18,4 @@ const ButtonsView = ({children, type, onClick, disabled}: buttonTypes) => {
   </button>
 }
 
-export default ButtonsView
+export default React.memo(ButtonsView)
