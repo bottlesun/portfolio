@@ -51,10 +51,17 @@ const register = async (req: Request, res: Response) => {
     // 에러를 response 로 보내준다.
     return res.status(500).json({error})
   }
+};
+
+const login = async (req: Request, res: Response) => {
+  const {username, password} = req.body;
+
+
 }
 
 const router = Router();
 router.post('/register', register);
+router.post('/login', login)
 
 export default router
 

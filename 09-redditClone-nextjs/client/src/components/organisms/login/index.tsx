@@ -26,7 +26,7 @@ const Login = () => {
         }
       )
     } catch (error : Error | any){
-      console.error(error)
+      console.error(error);
       setErrors(error?.response.data || {});
     }
   }, [username, password])
