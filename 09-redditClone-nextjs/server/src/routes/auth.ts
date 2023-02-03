@@ -1,5 +1,8 @@
-import {validate} from "class-validator";
+import bcrypt from "bcryptjs";
+import cookie from "cookie"
+import {isEmpty, validate} from "class-validator";
 import {Request, Response, Router} from "express";
+import jwt from "jsonwebtoken"
 import {User} from "../entity/User";
 
 /**
@@ -55,17 +58,44 @@ const register = async (req: Request, res: Response) => {
 
 const login = async (req: Request, res: Response) => {
   const {username, password} = req.body;
+  try {
+    let errors: Error | any = {};
+    if (isEmpty(username)) errors.username = '사용자 이름은 비워둘 수 없습니다.'
+    if (isEmpty(password)) errors.password = '비밀번호는 비워둘 수 없습니다.'
+    if (Object.keys(errors.length > 0)) {
+      return res.status(400).json(errors);
+    }
+
+    // 디비 에서 유저 찾기
+    const user = await User.findOneBy({username});
+    // 유저가 없다면 에러 보내기
+    if(!user) return res.status(404).json({username : "사용자 이름이 등록되지 않았습니다."});
+    // 유저가 있다면 비밀번호 비교
+    // bcrypt.compare() 로 local password 값과 db 저장된 password 값을 비교해주기.
+    const passwordMatches = await bcrypt.compare(password,user.password);
+    //비밀번호가 다르면 에러보내기
+    if(!passwordMatches) return res.status(401).json({password : "비밀번호가 일치하지 않습니다."});
+    // 비밀번호가 맞다면 토큰 생성 (jwt 사용)
+    const token = jwt.sign({username} , process.env.JWT_SECRET);
+    // 쿠키 저장
+    // cookie.serialize 를 사용해서 const token 에 저장 된 값을 저장한다.
+    res.set('Set-Cookie', cookie.serialize("token",token ));
+
+    return res.json({user,token});
+
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json(error);
+  }
 
 
 }
 
 const router = Router();
 router.post('/register', register);
-router.post('/login', login)
+router.post('/login', login);
 
 export default router
-
-
 
 
 /*
