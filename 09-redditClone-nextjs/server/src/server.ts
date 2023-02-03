@@ -8,7 +8,12 @@ import cors from "cors"
 const app = express();
 const origin = "http://localhost:3000";
 
-app.use(cors({origin}));
+app.use(cors({
+  // 다른 도메인을 같은 도메인으로 연결해준다
+  origin,
+  // 도메인 주소가 다르면 쿠키가 전송ㅇ ㅣ되지 않기에 맞춰주는 옵션
+  credentials : true
+}));
 app.use(express.json());
 //morgan 옵션 ( dev, short, common, combined ) 중 하나를 선택
 app.use(morgan('dev'));
