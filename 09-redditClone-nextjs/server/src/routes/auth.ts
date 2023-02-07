@@ -60,9 +60,10 @@ const login = async (req: Request, res: Response) => {
   const {username, password} = req.body;
   try {
     let errors: Error | any = {};
+    // 비워져있다면 에러를 프론트엔드로 보내주기
     if (isEmpty(username)) errors.username = '사용자 이름은 비워둘 수 없습니다.'
     if (isEmpty(password)) errors.password = '비밀번호는 비워둘 수 없습니다.'
-    if (Object.keys(errors.length > 0)) {
+    if (Object.keys(errors).length > 0) {
       return res.status(400).json(errors);
     }
 

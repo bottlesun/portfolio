@@ -25,6 +25,7 @@ const Login = () => {
           withCredentials : true
         }
       )
+      return router.push('/');
     } catch (error : Error | any){
       console.error(error);
       setErrors(error?.response.data || {});
@@ -55,7 +56,7 @@ const Login = () => {
       login: {
         children: '로그인',
         type: 'submit',
-        onClick: () => console.log('login'),
+        onClick: handleSubmit,
         disabled: false
       },
     }

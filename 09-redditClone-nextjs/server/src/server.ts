@@ -7,8 +7,7 @@ import dotenv from "dotenv";
 
 // 최상위 함수
 const app = express();
-const origin = process.env.ORIGIN;
-
+const origin = `http://localhost:3000`;
 app.use(cors({
   // 다른 도메인을 같은 도메인으로 연결해준다
   origin,
@@ -29,10 +28,10 @@ app.get('/', (_, res) => {
 app.use("/api/auth", authRoutes);
 
 // app.listen의 첫번째 인자는 포트번호, 두번째 인자는 콜백함수
-let port = process.env.PORT;
+let port = 4000;
 //app.listen의 포트로 접속하면 해당 블록의 비동기로 코드 실행
 app.listen(port, async () => {
-  console.log(`Server is running at http://localhost:${port}`);
+  console.log(`Server is running at ${process.env.APP_URL}`);
 
   AppDataSource.initialize().then(() => {
     console.log("database initialized")
