@@ -80,7 +80,13 @@ const login = async (req: Request, res: Response) => {
     const token = jwt.sign({username} , process.env.JWT_SECRET);
     // 쿠키 저장
     // cookie.serialize 를 사용해서 const token 에 저장 된 값을 저장한다.
-    res.set('Set-Cookie', cookie.serialize("token",token ));
+    res.set('Set-Cookie', cookie.serialize("login-token", token,{
+      httpOnly : true, // 임의로 클라이언트에서 쿠키 조작을 할 수 없도록 해주는 옵션
+      maxAge : 60*60 * 24 * 7, // 1 week 쿠키의 만료시간을 정해준다.
+      // secure : process.env.NODE_ENV === "production" // https 연결에서만 쿠키를 사용 할 수 있게 해준다.
+      // sameSite : "script" // 요청이 외부 사이트에서 일어날때 쿠키를 보내지 못하도록 막는다.
+      path: "/"
+    } ));
 
     return res.json({user,token});
 

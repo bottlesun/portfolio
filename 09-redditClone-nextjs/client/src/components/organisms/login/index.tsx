@@ -1,6 +1,7 @@
 import Axios from "axios";
 import {useRouter} from "next/router";
 import {FormEvent, useCallback, useState} from "react";
+import {useAuthDispatch} from "../../../context/auth";
 import useInput from "../../../hooks/useInput";
 import LoginView from "./login.view";
 
@@ -9,6 +10,8 @@ const Login = () => {
   const {inputs, onChange} = useInput({email: '', username: '', password: ''})
   const {username, password} = inputs
   const [errors, setErrors] = useState<any>({});
+
+  const dispatch = useAuthDispatch();
 
   const handleSubmit = useCallback(async (e: FormEvent) => {
     e.preventDefault();
@@ -25,6 +28,9 @@ const Login = () => {
           withCredentials : true
         }
       )
+      // 유저 정보를 context 보관 해주기
+      dispatch('LOGIN',res.data.user);
+
       return router.push('/');
     } catch (error : Error | any){
       console.error(error);
