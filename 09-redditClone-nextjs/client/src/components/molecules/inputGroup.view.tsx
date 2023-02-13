@@ -1,6 +1,6 @@
 import React from "react";
-import ErrorTextView from "../../atoms/errorText/errorText.view";
-import InputsView, {InputGroupProps} from "../../atoms/inputs/inputs.view";
+import ErrorTextView from "../atoms/errorText/errorText.view";
+import InputsView, {InputGroupProps} from "../atoms/inputs/inputs.view";
 
 const InputGroupView = ({...inputValue}: InputGroupProps) => {
   return (

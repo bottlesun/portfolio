@@ -1,7 +1,7 @@
 import Link from "next/link";
 import React from "react";
 import ButtonsView from "../../atoms/buttons/buttons.view";
-import InputGroupView from "../../molecules/inputGroup/inputGroup.view";
+import InputGroupView from "../../molecules/inputGroup.view";
 
 const LoginView = ({...props}) => {
   return (
