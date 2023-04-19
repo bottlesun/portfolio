@@ -17,5 +17,5 @@ export default function useInput<T>(initialData: T) {
     });
   }, [inputs])
 
-  return {onChange, inputs}
+  return {onChange, inputs , setInputs}
 }

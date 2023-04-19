@@ -2,6 +2,7 @@ import express from 'express';
 import morgan from 'morgan';
 import {AppDataSource} from "./data-source";
 import authRoutes from "./routes/auth"
+import subsRoutes from "./routes/subs"
 import cors from "cors"
 import dotenv from "dotenv";
 
@@ -19,13 +20,14 @@ app.use(express.json());
 app.use(morgan('dev'));
 
 // server 에서 env 파일 적용 시키기.
-dotenv.config();
+ dotenv.config();
 // app.get의 url로 접속하면 해당 블록의 코드를 실행
 app.get('/', (_, res) => {
   res.send('running');
 });
 // 해당 라우터로가서 있는 하위 값에 요청을 해준다
-app.use("/api/auth", authRoutes);
+ app.use("/api/auth", authRoutes);
+ app.use("/api/subs",subsRoutes);
 
 // app.listen의 첫번째 인자는 포트번호, 두번째 인자는 콜백함수
 let port = 4000;

@@ -1,4 +1,5 @@
 export const slugify = function (str) {
+    // slugify 는 문자열을 URL에 쓸 수 있는 형태로 변환해주는 함수입니다.
     str = str.replace(/^\s+|\s+$/g, ''); // trim
     str = str.toLowerCase();
 
@@ -18,6 +19,7 @@ export const slugify = function (str) {
 
 
 export function makeId(length) {
+    // makeId 는 랜덤한 문자열을 생성해주는 함수입니다.
     var result = '';
     var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     var charactersLength = characters.length;

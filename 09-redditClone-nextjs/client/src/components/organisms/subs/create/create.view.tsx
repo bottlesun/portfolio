@@ -4,6 +4,7 @@ import InputTitleView from "../../../molecules/inputTitle.view";
 
 const SubCreateView = ({...props}) => {
   console.log(props.inputValue)
+
   return (
     <div className={'flex flex-col justify-center pt-16 bg-color-[#fff]'}>
       <div className={'w-10/12 mx-auto md:w-96'}>

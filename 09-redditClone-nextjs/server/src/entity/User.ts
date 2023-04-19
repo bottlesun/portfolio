@@ -31,6 +31,7 @@ export class User extends BaseEntity {
 
     @BeforeInsert()
     async hashPassword() {
+        // hashPassword() 함수는 비밀번호를 암호화하는 함수입니다.
         this.password = await bcrypt.hash(this.password, 6)
     }
 

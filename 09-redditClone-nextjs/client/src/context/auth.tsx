@@ -49,6 +49,7 @@ const reducer = (state: State, {type, payload}: Action) => {
 
 export const AuthProvider = ({children}: { children: React.ReactNode }) => {
   const [state, defaultDispatch] = useReducer(reducer, {
+    //useReducer 는 state 와 dispatch 를 반환
     user: null,
     authenticated: false,
     loading: true

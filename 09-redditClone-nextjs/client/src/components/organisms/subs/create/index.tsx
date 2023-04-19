@@ -1,4 +1,6 @@
-import {useState} from "react";
+import axios from "axios";
+import {useRouter} from "next/router";
+import {FormEvent, useState} from "react";
 import useInput from "../../../../hooks/useInput";
 import SubCreateView from "./create.view";
 
@@ -6,9 +8,23 @@ const SubCreate = () => {
   const {inputs, onChange} = useInput({name: "", title: "", description: "",})
   const {name, title, description} = inputs
   const [errors, setErrors] = useState<any>({});
+  const router = useRouter();
+
+  const handleSubmit = async (e:FormEvent) => {
+  e.preventDefault();
+
+  try{
+    const res = await axios.post('/subs', {name, title, description})
+
+    return router.push(`/r/${res.data.name}`)
+  } catch (err : Error | any){
+    console.error(err);
+    setErrors(err?.response?.data);
+  }
+  }
 
   const props = {
-    handleSubmit: () => console.log('서브밋'),
+    handleSubmit: (e:FormEvent) => handleSubmit(e),
     inputValue: {
       name: {
         top: {
