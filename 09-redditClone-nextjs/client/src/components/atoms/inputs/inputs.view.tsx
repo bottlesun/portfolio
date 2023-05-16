@@ -10,6 +10,7 @@ export type InputGroupProps = {
   setValue?: (str: string) => void;
   onChange?: () => void;
   name: string;
+  className?: string;
 };
 
 const InputsView = ({ ...props }: InputGroupProps) => {

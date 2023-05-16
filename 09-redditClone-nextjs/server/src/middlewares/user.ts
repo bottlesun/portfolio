@@ -20,6 +20,8 @@ export default async function user(req: Request, res: Response, next: NextFuncti
     // 유저 정보를 res.user.local.user에 저장한다.
     // 이렇게 하면 다음 미들웨어에서 유저 정보를 사용할 수 있다.
     res.locals.user = user;
+    // next() 를 하지 않아 다음 미들웨어로 넘어가지 않는다면 펜딩이 된다.
+    return next();
   } catch (err) {
     console.log(err);
     return res.status(400).json({ error: "Something went wrong" });

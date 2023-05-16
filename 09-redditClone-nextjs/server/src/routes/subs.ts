@@ -33,6 +33,7 @@ const createSub = async (req: Request, res: Response, next) => {
   // 유저 정보가 있다면 sub 를 생성
   try {
     const user: User = res.locals.user;
+    // Sub Instance 생성 후 데이터베이스에 저장
     const sub = new Sub();
     sub.name = name;
     sub.title = title;
@@ -40,6 +41,8 @@ const createSub = async (req: Request, res: Response, next) => {
     sub.user = user;
 
     await sub.save();
+
+    // 저장한 정보 프론트엔드로 전달
     return res.json(sub);
   } catch (err) {
     console.log(err);

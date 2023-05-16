@@ -4,6 +4,8 @@ import cookie from "cookie";
 import { Request, Response, Router } from "express";
 import jwt from "jsonwebtoken";
 import { User } from "../entity/User";
+import authMiddleware from "../middlewares/auth";
+import userMiddleware from "../middlewares/user";
 
 /**
  * mapError - 유효성 검사에 대한 error 처리 로직.
@@ -14,6 +16,11 @@ const mapError = (errors: Object[]) => {
     prev[err.property] = Object.entries(err.constraints)[0][1];
     return prev;
   }, {});
+};
+
+const me = async (_, res: Response) => {
+  // 미들웨어에서 넣어준것
+  return res.json(res.locals.user);
 };
 
 const register = async (req: Request, res: Response) => {
@@ -98,10 +105,26 @@ const login = async (req: Request, res: Response) => {
   }
 };
 
+const logout = async (_, res: Response) => {
+  res.set(
+    "Set-Cookie",
+    cookie.serialize("login_token", "", {
+      httpOnly: true, // 임의로 클라이언트에서 쿠키 조작을 할 수 없도록 해주는 옵션
+      secure: process.env.NODE_ENV === "production", // https 연결에서만 쿠키를 사용 할 수 있게 해준다.
+      sameSite: "strict", // 요청이 외부 사이트에서 일어날때 쿠키를 보내지 못하도록 막는다.
+      expires: new Date(0), // 쿠키의 만료시간을 0으로 넣어줘서 바로 사라질 수 있게 해준다.
+      path: "/"
+    })
+  );
+
+  res.status(200).json({ success: true });
+};
+
 const router = Router();
+router.get("/me", userMiddleware, authMiddleware, me);
 router.post("/register", register);
 router.post("/login", login);
-
+router.post("/logout", userMiddleware, authMiddleware, logout);
 export default router;
 
 /*

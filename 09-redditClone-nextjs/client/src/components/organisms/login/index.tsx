@@ -11,8 +11,11 @@ const Login = () => {
   const { username, password } = inputs;
   const [saved, setSaved] = useState<boolean>(false);
   const [errors, setErrors] = useState<any>({});
+  const { authenticated } = useAuthState();
   const dispatch = useAuthDispatch();
   const state = useAuthState();
+
+  if (authenticated) router.push("/");
 
   console.log(state.user);
 
