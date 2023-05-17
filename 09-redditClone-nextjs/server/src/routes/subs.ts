@@ -1,6 +1,7 @@
 import { isEmpty } from "class-validator";
 import { Request, Response, Router } from "express";
 import { AppDataSource } from "../data-source";
+import Post from "../entity/Post";
 import Sub from "../entity/Sub";
 import { User } from "../entity/User";
 import authMiddleware from "../middlewares/auth";
@@ -50,9 +51,29 @@ const createSub = async (req: Request, res: Response, next) => {
   }
 };
 
+const topSubs = async (req: Request, res: Response) => {
+  try {
+    const imageUrlExp = `COALESCE(s."imageUrn", 'https://www.gravatar.com/avatar?d=mp&f=y')`;
+    const subs = await AppDataSource.createQueryBuilder()
+      .select(`s.title, s.name, ${imageUrlExp} as "imageUrl", count(p.id) as "postCount"`)
+      // count(p.id) as "postCount" 는 p.id 의 갯수를 postCount 로 가져온다.
+      .from(Sub, "s") // Sub 테이블을 가져온다.
+      .leftJoin(Post, "p", `s.name = p."subName"`) //   Post 테이블을 가져온다.
+      .groupBy('s.title, s.name, "imageUrl"') // s.title, s.name, "imageUrl" 의 그룹을 가져온다.
+      .orderBy(`"postCount"`, "DESC") // postCount 를 기준으로 내림차순 정렬
+      .limit(5) // 5개만 가져온다.
+      .execute(); // 실행
+
+    return res.json(subs);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ error: "문제가 발생했습니다." });
+  }
+};
+
 const router = Router();
 
 // 미들웨어 연결
 router.post("/", userMiddleware, authMiddleware, createSub);
-
+router.get("/sub/topSubs", topSubs);
 export default router;
