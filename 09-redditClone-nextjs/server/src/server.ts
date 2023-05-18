@@ -34,6 +34,8 @@ app.get("/", (_, res) => {
 app.use("/api/auth", authRoutes);
 app.use("/api/subs", subRoutes);
 
+app.use(express.static("public"));
+
 // app.listen의 첫번째 인자는 포트번호, 두번째 인자는 콜백함수
 let port = 4000;
 //app.listen의 포트로 접속하면 해당 블록의 비동기로 코드 실행

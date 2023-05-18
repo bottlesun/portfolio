@@ -1,10 +1,5 @@
 import { instanceToPlain } from "class-transformer";
-import {
-  BaseEntity,
-  CreateDateColumn,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
-} from "typeorm";
+import { BaseEntity, CreateDateColumn, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 export default abstract class Entity extends BaseEntity {
   @PrimaryGeneratedColumn()
@@ -17,6 +12,6 @@ export default abstract class Entity extends BaseEntity {
   updatedAt: Date;
 
   toJSON() {
-    return instanceToPlain(this);
+    return instanceToPlain(this); // class-transformer 를 통해 Entity 를 plain object 로 변환
   }
 }
