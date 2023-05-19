@@ -5,6 +5,7 @@ import express from "express";
 import morgan from "morgan";
 import { AppDataSource } from "./data-source";
 import authRoutes from "./routes/auth";
+import postsRoutes from "./routes/posts";
 import subRoutes from "./routes/subs";
 
 // 최상위 함수
@@ -33,6 +34,7 @@ app.get("/", (_, res) => {
 // 해당 라우터로가서 있는 하위 값에 요청을 해준다
 app.use("/api/auth", authRoutes);
 app.use("/api/subs", subRoutes);
+app.use("/api/posts", postsRoutes);
 
 app.use(express.static("public"));
 

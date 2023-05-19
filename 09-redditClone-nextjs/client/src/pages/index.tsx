@@ -7,7 +7,7 @@ import { useAuthState } from "../context/auth";
 import { Sub } from "../types/user";
 
 export default function Home() {
-  const { authenticated } = useAuthState();
+  const { authenticated } = useAuthState(); // 로그인 여부
   const fetcher = async (url: string) => {
     return await axios.get(url).then((res) => res.data);
   };
@@ -39,7 +39,7 @@ export default function Home() {
               {topSubs?.map((sub) => (
                 <div key={sub.name} className={"flex items-center px-4 py-2 text-xs border-b"}>
                   <Link href={`/r/${sub.name}`}>
-                    <Image src={"https://www.gravatar.com/avatar?d=mp&f=y"} className={"rounded-full cursor-pointer"} alt={"sub"} width={24} height={24} />
+                    <Image src={sub.imageUrl} className={"rounded-full cursor-pointer"} alt={"sub"} width={24} height={24} />
                   </Link>
                   <Link href={`/r/${sub.name}`} className={"ml-2 font-bold hover:cursor-pointer"}>
                     /r/{sub.name}

@@ -17,6 +17,21 @@ const getSub = async (req: Request, res: Response) => {
   try {
     const sub = await Sub.findOneByOrFail({ name });
 
+    // 포스트 생성 후 해당 sub에 속하는 포스트 정보들을 넣어준다
+    const posts = await Post.find({
+      where: { subName: sub.name }, // 해당 sub에 속하는 포스트들을 가져온다
+      order: { createdAt: "DESC" }, // 최신순으로 정렬
+      relations: ["comments", "votes"] // 포스트에 속하는 댓글과 투표 정보를 가져온다
+      // relations 는 해당 엔티티와 관계가 있는 엔티티를 가져온다.
+    });
+
+    sub.posts = posts;
+
+    if (res.locals.user) {
+      // 유저가 투표한 포스트들을 넣어준다
+      sub.posts.forEach((p) => p.setUserVote(res.locals.user));
+    }
+
     return res.json(sub);
   } catch (error) {
     console.log(error);
@@ -68,7 +83,8 @@ const createSub = async (req: Request, res: Response, next) => {
 };
 const topSubs = async (req: Request, res: Response) => {
   try {
-    const imageUrlExp = `COALESCE(s."imageUrn", 'https://www.gravatar.com/avatar?d=mp&f=y')`;
+    // 이미지 경로를 가져오는데 ${process.env.APP_URL}/images/ 를 붙여 가져온다.
+    const imageUrlExp = `COALESCE('${process.env.APP_URL}/images/'|| s."imageUrn", 'https://www.gravatar.com/avatar?d=mp&f=y')`;
     const subs = await AppDataSource.createQueryBuilder()
       .select(`s.title, s.name, ${imageUrlExp} as "imageUrl", count(p.id) as "postCount"`)
       // count(p.id) as "postCount" 는 p.id 의 갯수를 postCount 로 가져온다.
