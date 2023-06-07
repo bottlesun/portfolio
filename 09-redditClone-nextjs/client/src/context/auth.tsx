@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { createContext, useContext, useEffect, useReducer } from "react";
 import { User } from "../types/user";
 
-type State = {
+export type State = {
   authenticated: boolean;
   user: User | undefined;
   loading: boolean;

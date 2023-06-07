@@ -1,7 +1,8 @@
-import Axios from "axios";
-import axios from "axios/index";
+import axios from "axios";
 import type { AppProps } from "next/app";
+import Head from "next/head";
 import { useRouter } from "next/router";
+import React from "react";
 import { SWRConfig } from "swr";
 import NavBar from "../components/molecules/navBar/navBar";
 import { AuthProvider } from "../context/auth";
@@ -9,9 +10,9 @@ import "../styles/globals.css";
 
 export default function App({ Component, pageProps }: AppProps) {
   // next 는 환경변수 의 제목이 NEXT_PUBLIC_ 로 시작해야한다.
-  Axios.defaults.baseURL = process.env.NEXT_PUBLIC_SERVER_BASE_URL + "/api";
+  axios.defaults.baseURL = process.env.NEXT_PUBLIC_SERVER_BASE_URL + "/api";
   // cookie token 발급 다른 페이지에서도 토큰 확인 가능
-  Axios.defaults.withCredentials = true;
+  axios.defaults.withCredentials = true;
 
   const { pathname } = useRouter();
   const authRoutes = ["/register", "/login"];
@@ -27,13 +28,18 @@ export default function App({ Component, pageProps }: AppProps) {
   };
 
   return (
-    <SWRConfig value={{ fetcher }}>
-      <AuthProvider>
-        {!authRoute && <NavBar />}
-        <div className={authRoute ? "" : "pt-16"}>
-          <Component {...pageProps} />
-        </div>
-      </AuthProvider>
-    </SWRConfig>
+    <>
+      <Head>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossOrigin="anonymous" referrerPolicy="no-referrer" />
+      </Head>
+      <SWRConfig value={{ fetcher }}>
+        <AuthProvider>
+          {!authRoute && <NavBar />}
+          <div className={authRoute ? "" : "pt-16"}>
+            <Component {...pageProps} />
+          </div>
+        </AuthProvider>
+      </SWRConfig>
+    </>
   );
 }
