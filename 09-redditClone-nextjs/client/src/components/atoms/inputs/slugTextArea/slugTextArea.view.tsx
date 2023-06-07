@@ -1,6 +1,6 @@
 import Link from "next/link";
 import React from "react";
-import { SlugCommentsTextAreaType } from "../../../types/slug.type";
+import { SlugCommentsTextAreaType } from "../../../../types/slug.type";
 
 const SlugTextAreaView = ({ authenticated, user, handleSubmit, setNewComment, newComment }: SlugCommentsTextAreaType) => {
   return (

@@ -1,15 +1,23 @@
 import { Dispatch, FormEvent, SetStateAction } from "react";
+import { SWRResponse } from "swr/_internal";
 import { State } from "../context/auth";
 import { Comment, Post } from "./user";
 
-export type slugPropsType = { postProps: SlugInfType; commentsProps: SlugCommentsType };
+export type slugPropsType = {
+  post: SlugInfType;
+};
 
 export type SlugCommentsType = {
-  textArea: SlugCommentsTextAreaType;
+  comments: SlugCommentsPropsType;
   list: SlugCommentsListType;
 };
 
-export type SlugInfType = { post: Post };
+export type SlugInfType = Post;
+
+export type SlugCommentsPropsType = {
+  mutate: SWRResponse<Comment[]>["mutate"];
+  post: Post;
+} & Pick<State, "authenticated" | "user">;
 
 export type SlugCommentsTextAreaType = {
   setNewComment: Dispatch<SetStateAction<string>>;

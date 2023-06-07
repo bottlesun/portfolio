@@ -1,14 +1,14 @@
 import dayjs from "dayjs";
 import Link from "next/link";
 import React from "react";
-import { SlugInfType } from "../../../types/slug.type";
 
-const SlugInfoView = ({ post }: SlugInfType) => {
+const SlugInfoView = ({ ...post }) => {
   return (
     <div className={"py-2 pr-2"}>
       <div className={"flex items-center"}>
         <p className={"text-xs text-gray-400"}>
           Posted by
+          <i className={"fas fa-history ml-1 mr-1"}></i>
           <Link className={"mx-1 hover:underline"} href={`/u/${post.username}`}>
             /u/{post.username}
           </Link>
