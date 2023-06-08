@@ -10,9 +10,10 @@ type SubpageViewType = {
   sub: Sub;
   openFileInput: (type: string) => void;
   ownSub: boolean;
+  renderPosts: JSX.Element | null;
 };
 
-const SubpagesView = ({ fileInputRef, uploadImage, sub, openFileInput, ownSub }: SubpageViewType) => {
+const SubpagesView = ({ fileInputRef, uploadImage, sub, openFileInput, ownSub, renderPosts }: SubpageViewType) => {
   return (
     <>
       <section>
@@ -52,7 +53,7 @@ const SubpagesView = ({ fileInputRef, uploadImage, sub, openFileInput, ownSub }:
       </section>
       {/*포스트 와 사이드바*/}
       <div className={"flex max-w-5xl px-4 pt-5 mx-auto"}>
-        <div className={"w-full md:mr-3 md:w-8/12"}></div>
+        <div className={"w-full md:mr-3 md:w-8/12"}>{renderPosts}</div>
         <SideBar sub={sub} />
       </div>
     </>

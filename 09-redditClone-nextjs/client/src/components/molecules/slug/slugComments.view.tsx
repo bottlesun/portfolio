@@ -12,7 +12,7 @@ const SlugCommentsView = ({ comments, list }: SlugCommentsType) => {
       {/*댓글 리스트*/}
       {list.comments?.map((comment) => (
         <div className={"flex"} key={comment.identifier}>
-          <Vote data={comment} />
+          <Vote post={comments.post} authenticated={comments.authenticated} comment={comment} mutate={comments.mutate} />
           <SlugListBoxView {...comment} />
         </div>
       ))}

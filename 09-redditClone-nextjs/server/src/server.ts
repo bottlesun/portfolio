@@ -7,6 +7,7 @@ import { AppDataSource } from "./data-source";
 import authRoutes from "./routes/auth";
 import postsRoutes from "./routes/posts";
 import subRoutes from "./routes/subs";
+import voteRoutes from "./routes/votes";
 
 // 최상위 함수
 const app = express();
@@ -35,6 +36,7 @@ app.get("/", (_, res) => {
 app.use("/api/auth", authRoutes);
 app.use("/api/subs", subRoutes);
 app.use("/api/posts", postsRoutes);
+app.use("/api/votes", voteRoutes);
 
 app.use(express.static("public"));
 

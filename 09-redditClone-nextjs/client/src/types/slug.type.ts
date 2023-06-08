@@ -5,6 +5,8 @@ import { Comment, Post } from "./user";
 
 export type slugPropsType = {
   post: SlugInfType;
+  authenticated: State["authenticated"];
+  postsMutate: SWRResponse<Post[] | any>["mutate"];
 };
 
 export type SlugCommentsType = {
