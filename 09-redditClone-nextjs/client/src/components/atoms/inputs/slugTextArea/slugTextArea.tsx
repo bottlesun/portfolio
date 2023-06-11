@@ -5,7 +5,6 @@ import SlugTextAreaView from "./slugTextArea.view";
 
 const SlugTextArea = (textArea: SlugCommentsPropsType) => {
   const [newComment, setNewComment] = useState("");
-
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     if (newComment.trim() === "") return;

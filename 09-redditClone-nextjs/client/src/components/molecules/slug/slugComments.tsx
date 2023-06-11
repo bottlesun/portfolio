@@ -14,7 +14,7 @@ const SlugComments = ({ ...post }) => {
 
   const props = {
     comments: {
-      post,
+      ...post,
       mutate: mutate,
       authenticated,
       user
