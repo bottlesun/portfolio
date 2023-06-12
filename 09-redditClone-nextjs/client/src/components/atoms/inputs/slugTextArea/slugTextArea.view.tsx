@@ -4,7 +4,7 @@ import { SlugCommentsTextAreaType } from "../../../../types/slug.type";
 
 const SlugTextAreaView = ({ authenticated, user, handleSubmit, setNewComment, newComment }: SlugCommentsTextAreaType) => {
   return (
-    <div className={" pr-6 mb-4"}>
+    <div className={" pr-6 pb-5 pl-9"}>
       {authenticated ? (
         <div>
           <p className={"mb-1 text-xs"}>

@@ -21,7 +21,7 @@ const PostCreateView = ({ submitPost, title, setTitle, body, setBody }: PostCrea
             <div className={"relative mb-2"}>
               <InputsView placeholder={"제목"} maxLength={20} value={title} onChange={(e) => setTitle(e.target.value)} />
               <div style={{ top: 8, right: 10 }} className={"absolute  mb-2 text-sm text-gray-400 select-none"}>
-                {title.length} / 20
+                {title.trim().length} / 20
               </div>
             </div>
             <TextAreaView rows={4} placeholder={"설명"} value={body} onChange={(e) => setBody(e.target.value)} />

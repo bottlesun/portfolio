@@ -92,6 +92,29 @@ const getPostComments = async (req: Request, res: Response) => {
   }
 };
 
+const getPosts = async (req: Request, res: Response) => {
+  const currentPage: number = (req.query.page || 0) as number; // 현재 페이지
+  const perPage: number = (req.query.count || 8) as number; // 한 페이지에 보여줄 포스트 개수
+
+  try {
+    const posts = await Post.find({
+      order: { createdAt: "DESC" }, // DESC: 내림차순, ASC: 오름차순
+      relations: ["comments", "votes", "sub"], // 포스트에 속하는 댓글과 투표 정보를 가져온다
+      skip: currentPage * perPage, // 현재 페이지 * 한 페이지에 보여줄 포스트 개수
+      take: perPage // 한 페이지에 보여줄 포스트 개수
+    });
+
+    if (res.locals.user) {
+      posts.forEach((p) => p.setUserVote(res.locals.user)); // 유저가 투표한 포스트들을 넣어준다
+    }
+
+    return res.json(posts); // 포스트 정보를 프론트로 보내준다
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ error: "문제가 발생했습니다." });
+  }
+};
+
 const router = Router();
 
 // 미들웨어 연결
@@ -100,4 +123,6 @@ router.post("/", userMiddleware, authMiddleware, createPost);
 
 router.get("/:identifier/:slug/comments", userMiddleware, getPostComments);
 router.post("/:identifier/:slug/comments", userMiddleware, createPostComments);
+
+router.get("/", userMiddleware, getPosts);
 export default router;

@@ -11,7 +11,7 @@ const SlugView = ({ post, authenticated, postsMutate }: slugPropsType) => {
         <div className={"bg-white rounded"}>
           {post && (
             <>
-              <div className={"flex"}>
+              <div className={"flex "}>
                 <Vote post={post} authenticated={authenticated} mutate={postsMutate} />
                 <SlugInfoView {...post} />
               </div>

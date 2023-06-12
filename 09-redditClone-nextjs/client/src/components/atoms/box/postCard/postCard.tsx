@@ -1,13 +1,12 @@
 import axios from "axios";
 import { useRouter } from "next/router";
-import { SWRResponse } from "swr/_internal";
 import { useAuthState } from "../../../../context/auth";
-import { Post, Sub } from "../../../../types/user";
+import { Post } from "../../../../types/user";
 import PostCardView from "./postCard.view";
 
 type PostCardProps = {
   post: Post;
-  mutate: SWRResponse<Sub[]>["mutate"];
+  mutate?: Function;
 };
 const PostCard = ({ post, mutate }: PostCardProps) => {
   const { identifier, slug, userVote } = post;

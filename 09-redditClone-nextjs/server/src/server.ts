@@ -7,6 +7,7 @@ import { AppDataSource } from "./data-source";
 import authRoutes from "./routes/auth";
 import postsRoutes from "./routes/posts";
 import subRoutes from "./routes/subs";
+import userRoutes from "./routes/users";
 import voteRoutes from "./routes/votes";
 
 // 최상위 함수
@@ -37,6 +38,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/subs", subRoutes);
 app.use("/api/posts", postsRoutes);
 app.use("/api/votes", voteRoutes);
+app.use("/api/users", userRoutes);
 
 app.use(express.static("public"));
 

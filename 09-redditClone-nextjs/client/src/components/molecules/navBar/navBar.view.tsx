@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import ButtonsView from "../../atoms/buttons/buttons.view";
 import InputsView from "../../atoms/inputs/inputs.view";
@@ -6,8 +7,10 @@ const NavBarView = ({ ...props }) => {
   return (
     <>
       <div className={"fixed inset-x-0 top-0 z-10 flex items-center justify-between h-16 px-5 bg-white"}>
-        <span className={"text-2xl font-semibold text-gray-400"}>
-          <Link href={"/"}>Community</Link>
+        <span className={"flex items-center font-semibold text-gray-400"}>
+          <Link href={"/"}>
+            <Image src={"/reddit-logo.png"} alt={"logo"} width={80} height={45} />
+          </Link>
         </span>
 
         <div className={"max-w-full px-x"}>

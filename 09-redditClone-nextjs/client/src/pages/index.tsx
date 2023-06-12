@@ -1,20 +1,69 @@
 import axios from "axios";
+import { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
+import React, { useEffect, useState } from "react";
 import useSWR from "swr";
+import useSWRInfinite from "swr/infinite";
+import PostCard from "../components/atoms/box/postCard/postCard";
 import { useAuthState } from "../context/auth";
-import { Sub } from "../types/user";
+import { Post, Sub } from "../types/user";
 
-export default function Home() {
+const Home: NextPage = () => {
   const { authenticated } = useAuthState(); // 로그인 여부
   const fetcher = async (url: string) => {
     return await axios.get(url).then((res) => res.data);
   };
+
+  const getKey = (pageIndex: number, previousPageData: Post[]) => {
+    if (previousPageData && !previousPageData.length) return null;
+    return `/posts?page=${pageIndex}`;
+  };
+
+  const { data, error, mutate, size: page, setSize: setPage, isValidating } = useSWRInfinite<Post[]>(getKey);
+  const isInitialLoading = !data && !error;
+  const posts: Post[] = data ? ([] as Post[]).concat(...data) : [];
+
   const address = "http://localhost:4000/api/subs/sub/topSubs";
 
   const { data: topSubs } = useSWR<Sub[]>(address, fetcher);
-  console.log("topSub", topSubs);
+
+  const [observedPost, setObservedPost] = useState("");
+
+  useEffect(() => {
+    if (!posts || posts.length === 0) return;
+    // posts 배열안에 마지막 post에 id를 가져옵니다.
+    const id = posts[posts.length - 1].identifier;
+    // posts 배열에 post 가 추가돼 마지막 post 가 바뀌었다면
+    // 바뀐 post 중 마지막 post 를 observedPost 에 넣습니다.
+    if (id !== observedPost) {
+      // observedPost 가 바뀌면
+      setObservedPost(id);
+      observeElement(document.getElementById(id));
+    }
+    // observedPost 가 바뀌면 페이지를 추가로 로드합니다.
+  }, [posts]);
+
+  const observeElement = (element: HTMLElement | null) => {
+    // console.log("element", element);
+    if (!element) return;
+    // 브라우저 뷰포트와 설정한 요소의 교차점 을 관찰
+    const observer = new IntersectionObserver(
+      (entries) => {
+        // isIntersecting : 관찰 대상의 교차 상태를 나타내는 읽기 전용 속성
+        if (entries[0].isIntersecting) {
+          console.log("마지막 포스트에 있습니다.");
+          setPage(page + 1);
+          observer.unobserve(element);
+        }
+      },
+      // 옵저버가 실행되기 위해 타겟의 가시성이 얼마나 필요한지 백분율로 표시
+      { threshold: 1 }
+    );
+    // 대상 요소의 관찰 시작
+    observer.observe(element);
+  };
 
   return (
     <>
@@ -26,7 +75,13 @@ export default function Home() {
       </Head>
       <div className={"flex max-w-5xl px-4 pt-5 mx-auto"}>
         {/*포스트 리스트*/}
-        <div className={"w-full md:mr-3 md:w-8/12"}></div>
+        <div className={"w-full md:mr-3 md:w-8/12"}>
+          {isInitialLoading && <p className={"text-lg text-center"}>로딩중 입니다..</p>}
+          {posts?.map((post) => {
+            return <PostCard key={post.identifier} post={post} mutate={mutate} />;
+          })}
+          {isValidating && posts.length > 0 && <p className={"text-lg text-center"}>로딩중 입니다..</p>}
+        </div>
 
         {/*사이드 바*/}
         <div className={"hidden w-4/12 ml-3 md:block"}>
@@ -61,4 +116,5 @@ export default function Home() {
       </div>
     </>
   );
-}
+};
+export default Home;
